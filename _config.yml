@@ -7,9 +7,9 @@
 
 # Site Settings
 locale                   : "en"
-title                    : "Site Title"
+title                    : "csnfrt"
 title_separator          : "-"
-name                     : "S."
+name                     : "S. Kaan Cetindag"
 description              : "An amazing website."
 url                      : "https://kaancet.github.io"
 baseurl                  : # the subpath of your site, e.g. "/blog"
@@ -245,4 +245,4 @@ defaults:
       share: true
       related: true
 
-theme: jekyll-theme-minimal
+theme: minimal-mistakes-jekyll
