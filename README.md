@@ -1,1 +1,0 @@
-# kaancet github yall
