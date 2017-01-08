@@ -8,12 +8,12 @@
 # Site Settings
 locale                   : "en"
 title                    : "csnfrt"
-title_separator          : "-"
+title_separator          : "|"
 name                     : "S. Kaan Cetindag"
 description              : "An amazing website."
 url                      : "https://kaancet.github.io"
 baseurl                  : # the subpath of your site, e.g. "/blog"
-repository               : # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
+repository               : "kaancet/kaancet.github.io"
 teaser                   : # path of fallback teaser image, e.g. "/assets/images/500x300.png"
 # breadcrumbs            : false # true, false (default)
 words_per_minute         : 200
@@ -78,18 +78,18 @@ analytics:
 # Site Author
 author:
   name             : "S. Kaan Cetindag"
-  avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "I am an amazing person."
+  avatar           : /assets/images/kaan-photo.jpg
+  bio              : "Single sentence super awesome biography"
   location         : "Istanbul, TR"
-  email            :
+  email            : cetindag.kaan@gmail.com
   uri              :
   bitbucket        :
   codepen          :
   dribbble         :
   flickr           :
-  facebook         :
+  facebook         : https://www.facebook.com/kaan.cetindag.93
   foursquare       :
-  github           :
+  github           : https://github.com/kaancet
   google_plus      :
   keybase          :
   instagram        :
@@ -98,7 +98,7 @@ author:
   pinterest        :
   soundcloud       :
   stackoverflow    : # "123456/username" (the last part of your profile url, e.g. http://stackoverflow.com/users/123456/username)
-  steam            :
+  steam            : 
   tumblr           :
   twitter          :
   vine             :
@@ -174,7 +174,7 @@ sass:
 permalink: /:categories/:title/
 paginate: 5 # amount of posts to show
 paginate_path: /page:num/
-timezone: # http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+timezone: Asia/Istanbul
 
 
 # Plugins
@@ -241,7 +241,7 @@ defaults:
       layout: single
       author_profile: true
       read_time: true
-      comments: # true
+      comments: false
       share: true
       related: true
 
