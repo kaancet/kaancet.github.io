@@ -1,12 +1,12 @@
 ---
 layout: archive
-permalink: /blogposts/
-title: "Blog Posts"
+permalink: /projects/
+title: "Projects"
 author_profile: true
 ---
 
  {% for post in site.posts %}
-   {% if post.categories contains 'posts' %}
+   {% if post.categories contains 'projects' %}
     {% include archive-single.html %}
    {% endif %}
 {% endfor %}

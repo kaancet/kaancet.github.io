@@ -2,9 +2,9 @@
 main:
   - title: "Blog Posts"
     url: /blogposts/
-  - title: "Projects"
+  - title: "Software/Hardware"
     url: /projects/
-  # - title: "Sample Collections"
-  #   url: /collection-archive/
+  - title: "About"
+    url: /about/
   # - title: "Sitemap"
   #   url: /sitemap/
