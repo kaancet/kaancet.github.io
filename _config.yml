@@ -246,4 +246,4 @@ defaults:
       share: true
       related: true
 
-theme: minimal-mistakes-jekyll
+theme: jekyll-theme-slate
