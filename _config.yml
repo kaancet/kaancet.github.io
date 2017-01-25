@@ -68,6 +68,7 @@ social:
   name                   : # If the user or organization name differs from the site's name
   links: 
       -https://facebook.com/kaan.cetindag.93
+      -https://tr.linkedin.com/in/kaan-çetindağ-a1a61387
 
 # Analytics
 analytics:
@@ -79,8 +80,8 @@ analytics:
 # Site Author
 author:
   name             : "S. Kaan Cetindag"
-  avatar           : /assets/images/kaan-photo.jpg
-  bio              : "Single sentence super awesome biography"
+  avatar           : "/assets/images/kaan-photo.jpg"
+  bio              : "Single sentence super awesome biography."
   location         : "Istanbul, TR"
   email            : cetindag.kaan@gmail.com
   uri              :
@@ -90,12 +91,12 @@ author:
   flickr           :
   facebook         : kaan.cetindag.93
   foursquare       :
-  github           : kaancet
+  #github           : kaancet
   google_plus      :
   keybase          :
   instagram        :
   lastfm           :
-  linkedin         :
+  linkedin         : kaan-çetindağ-a1a61387
   pinterest        :
   soundcloud       :
   stackoverflow    : # "123456/username" (the last part of your profile url, e.g. http://stackoverflow.com/users/123456/username)
@@ -106,6 +107,7 @@ author:
   weibo            :
   xing             :
   youtube          : # "https://youtube.com/c/MichaelRoseDesign"
+  resume           : "/assets/data/kaan_cv.pdf"
 
 
 # Reading Files
