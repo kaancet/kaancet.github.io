@@ -105,7 +105,7 @@ As the receiving portion, Raspberry gathers the data from three microphones in d
 
 To accurately calculate the dB values we actually need the specifications of the microphone, but because the electret microphones that we used were generic ones with no identification on them, we decided to calculate the relative dB change instead. To achieve this, we calibrated the microphone with a known dB value __V<sub>reference</sub>__ and plugged it in with the measured value __V<sub>reading</sub>__ into the below equation:
 
-![db_math](/assets/images/room_sound/db_math.png)
+$$ dB = 20\log(\frac{V_{reading}}{V_{reference}}) $$
 
 The deployed Microphone Module MarkI can be seen below. The box was laser cut from PVC and assambled by hand by me and my friend Yigit 3am in the morning. I will probably update this post after I get the PCB and 3D print a sexier looking case for the Microphone Module MarkII.
 
