@@ -3,7 +3,7 @@ layout: single
 title: "NBA Finals prediction using BTL Algorithm"
 categories: posts
 tags: [bayes, NBA finals, BTL]
-excerpt: "Application of Bradley-Terry-Luce(BTL) algorithm to determine the latent talent of NBA teams and simulating NBA Finals with these talents"
+excerpt: "Application of Bradley-Terry-Luce (BTL) algorithm to determine the latent talent of NBA teams and simulating NBA Finals with these talents"
 ---
 
 The Bradley-Terry-Luce(BTL) Algorithm assesses the talent of contestants based on one-on-one matches. It uses pairwise comparisons to estimate a single parameter that approximates the latent ability of the contestant. The BTL algorithm is quite versatile, meaning the result of matches can be a subjective ranking or objective like a win\lose\draw scenario, as long as the results are consistent throughout the data. The BTL model assumes that the probability of team $$i$$ beating team $$j$$ ($$i \triangleright j$$) will depend on their latent abilities.
