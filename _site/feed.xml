@@ -1,4 +1,65 @@
-<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="http://localhost:4000/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.3.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-04-22T08:10:24+00:00</updated><id>http://localhost:4000//</id><title type="html">csnfrt</title><subtitle>An amazing website.</subtitle><author><name>S. Kaan Cetindag</name><email>cetindag.kaan@gmail.com</email></author><entry><title type="html">Analysis of Non-human Characters in Movies</title><link href="http://localhost:4000/posts/non-human-character-analysis/" rel="alternate" type="text/html" title="Analysis of Non-human Characters in Movies" /><published>2017-04-21T00:00:00+00:00</published><updated>2017-04-21T00:00:00+00:00</updated><id>http://localhost:4000/posts/non-human-character-analysis</id><content type="html" xml:base="http://localhost:4000/posts/non-human-character-analysis/">&lt;p&gt;After watching the latest Star Wars movie, I realized that throughout the whole movie, the only character I liked and related to was the rebel hacked robot K-2SO. This wasn’t because rest of the characters were badly written or lacked any depth. Except for Chirrut Îmwe, I really did not get that character as he was somewhere between a comic relief and a wise mentor, but, I digress and this is not a movie review post. After some retrospection I realized that this was the case for most of the movies with non-human characters(NHC) such as the Lord of the Rings franchise, Harry Potter franchise, Pan’s Labyrinth, Wall-E and etc.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="http://localhost:4000/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.3.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-09-07T13:40:50+00:00</updated><id>http://localhost:4000//</id><title type="html">csnfrt</title><subtitle>An amazing website.</subtitle><author><name>S. Kaan Cetindag</name><email>cetindag.kaan@gmail.com</email></author><entry><title type="html">NBA Finals prediction using BTL Algorithm</title><link href="http://localhost:4000/posts/BTL-algorithm-NBA/" rel="alternate" type="text/html" title="NBA Finals prediction using BTL Algorithm" /><published>2017-06-15T00:00:00+00:00</published><updated>2017-06-15T00:00:00+00:00</updated><id>http://localhost:4000/posts/BTL-algorithm-NBA</id><content type="html" xml:base="http://localhost:4000/posts/BTL-algorithm-NBA/">&lt;p&gt;The Bradley-Terry-Luce(BTL) Algorithm assesses the talent of contestants based on one-on-one matches. It uses pairwise comparisons to estimate a single parameter that approximates the latent ability of the contestant. The BTL algorithm is quite versatile, meaning the result of matches can be a subjective ranking or objective like a win\lose\draw scenario, as long as the results are consistent throughout the data. The BTL model assumes that the probability of team &lt;script type=&quot;math/tex&quot;&gt;i&lt;/script&gt; beating team &lt;script type=&quot;math/tex&quot;&gt;j&lt;/script&gt; (&lt;script type=&quot;math/tex&quot;&gt;i \triangleright j&lt;/script&gt;) will depend on their latent abilities.&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;p(i \triangleright j | \alpha) = \sigma (\frac{\alpha_i - \alpha_j}{scale})&lt;/script&gt;
+
+&lt;p&gt;where &lt;strong&gt;&lt;script type=&quot;math/tex&quot;&gt;\alpha&lt;/script&gt;&lt;/strong&gt; is the &lt;script type=&quot;math/tex&quot;&gt;T \times 1&lt;/script&gt; latent ability vector, &lt;script type=&quot;math/tex&quot;&gt;\sigma(x) = \frac{1}{1+e^{(-x)}}&lt;/script&gt; is the sigmoid function and &lt;script type=&quot;math/tex&quot;&gt;scale&lt;/script&gt; is used as a normalizing term for rankings. Basically, under this model, higher the difference between the latent ability of team &lt;script type=&quot;math/tex&quot;&gt;i&lt;/script&gt; and team &lt;script type=&quot;math/tex&quot;&gt;j&lt;/script&gt;, higher the probability of team &lt;script type=&quot;math/tex&quot;&gt;i&lt;/script&gt; beating team &lt;script type=&quot;math/tex&quot;&gt;j&lt;/script&gt;.&lt;/p&gt;
+
+&lt;p&gt;When dealing with single player contestants, it is easy to link different aspects of the player into a single latent ability parameter with simple assumptions, but when teams are considered this task is relatively harder. In our scenario, for example, changes in team roster, player injuries &amp;amp; rest days and team chemistry all play a role in a teams performance and therefore affect the latent ability of the team. In order to account for these, a posterior latent ability vector was used and some assumptions were made:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Team records - dichotomous outcome(win\lose) - are the talent indicator; i.e. score marigins are omitted.&lt;/li&gt;
+  &lt;li&gt;Temporary changes in team rosters - rested, suspended players - does not alter the overall team talent&lt;/li&gt;
+  &lt;li&gt;Team chemistry, player usage and coaching effects are omitted.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;
+To get the posterior latent ability vector of teams, first we need to establish a prior distribution. This was done by using the 2015-16 Regular Season records and to account for trades between teams, the difference in Real Plus\Minus(RPM) values of traded players were added&lt;sup&gt;&lt;a href=&quot;#foot1&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;. For example, for Chicago Bulls the prior latent ability:&lt;/p&gt;
+
+&lt;p&gt;&lt;script type=&quot;math/tex&quot;&gt;\alpha_{CHI}^{15-16} = Wins_{CHI}^{15-16} + \Delta TotalRPM^{16-17}&lt;/script&gt;.&lt;/p&gt;
+
+&lt;p&gt;We can then define the game data matrix &lt;script type=&quot;math/tex&quot;&gt;M^{16-17}&lt;/script&gt; and using this with our derived prior distribution we can get the posterior latent ability distributions of teams before they enter the playoffs.&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;p(\alpha|M^{16-17}) \propto p(M^{16-17}|\alpha)p(\alpha^{15-16})&lt;/script&gt;
+
+&lt;p&gt;In a regular season, each one of the &lt;a href=&quot;http://www.nba.com/teams&quot;&gt;thirty NBA teams&lt;/a&gt; plays 82 games with each other and the number of games Team A plays with Team B depends on their conferences. Each team plays 3-4 games with same conference teams (each conference has 15 teams, a given team plays 4 games with 10, and 3 games with 4 same-conference teams) and 2 games with other conference teams. For example, Chicago Bulls played 4 games with Cleveland Cavaliers and 2 games with Golden State Warriors in 2016-17 Regular Season. So, the regular season provides a useful dataset that can be used in a BTL implementation, since each team plays with each other at least 2 times&lt;sup&gt;&lt;a href=&quot;#foot1&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+
+&lt;p&gt;Scraping the 2016-17 season standings from &lt;a href=&quot;https://www.basketball-reference.com/leagues/NBA_2017.html&quot;&gt;here&lt;/a&gt;, and mapping them onto a grid, where the y-axis is the winning and the x-axis is the losing team, we get a match result matrix, &lt;strong&gt;&lt;script type=&quot;math/tex&quot;&gt;M^{16-17}&lt;/script&gt;&lt;/strong&gt;, where darker shades indicate high number of wins against the other team. As expected the values in the diagonal of the matrix are zero.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/NBABayes/win_map.png&quot; alt=&quot;team_win_map&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The maximum likelihood of the model is given by:&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;p(M^{16-17}|\alpha) = \prod_{ij}[\sigma(\alpha_i-\alpha_j)]^{M_{ij}}&lt;/script&gt;
+
+&lt;p&gt;where &lt;script type=&quot;math/tex&quot;&gt;M_{ij}&lt;/script&gt; indicates the amount of times team &lt;script type=&quot;math/tex&quot;&gt;i&lt;/script&gt; beat team &lt;script type=&quot;math/tex&quot;&gt;j&lt;/script&gt;.&lt;/p&gt;
+
+&lt;p&gt;To get a distribution of each teams latent talent, not the talent difference between the teams but the the talent difference compared to the scaling factor - 82 in NBA case - is used. &lt;script type=&quot;math/tex&quot;&gt;\alpha^{league}_i&lt;/script&gt; in this case is all the possible victories team &lt;script type=&quot;math/tex&quot;&gt;i&lt;/script&gt; can get:&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;L \equiv \log p(X|\alpha) = \sum_{i,j} M_{ij}\log\sigma(\alpha^{league}_i-\alpha_j) + M_{ij}\log(1-\sigma(\alpha^{league}_i-\alpha_j))&lt;/script&gt;
+
+&lt;p&gt;taking the exponential of the result will then give us a team talent distribution, which we will randomly pick from.&lt;/p&gt;
+
+&lt;p&gt;Below are all the &lt;em&gt;picked&lt;/em&gt; talents:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/NBABayes/post_talents.png&quot; alt=&quot;post_talents&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;After acquiring the posterior talents of all of the teams, we can use the talents of the teams that made it to the playoffs and implement an iterative process that matches the teams and simulates the series games by:&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;p(i \triangleright j | \alpha) = \sigma (\frac{\alpha_i - \alpha_j}{scale})&lt;/script&gt;
+
+&lt;p&gt;The simulation can sometimes give unexpected results, because it treats each game as an independent occurance. This is a gross misrepresentation of NBA playoff series as each game heavily depends on previous games and home court advantages. Even though, after running the simulation several times, the results are generally in alignment with found latent talents of teams and Golden State Warriors plays NBA Finals most of the time.&lt;/p&gt;
+
+&lt;p&gt;All in all, we can confidently say that we predicted the 2017 NBA Finals pretty accurately as it can be seen below, and yes &lt;strong&gt;cherry picking was used to obtain this result&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/NBABayes/final_bracket.png&quot; alt=&quot;final_bracket&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;This was a final group project done with my friends Onur Alten and Feyzullah Alim Koyuncu. 
+&lt;a name=&quot;foot1&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;hr style=&quot;width: 300px&quot; /&gt;
+
+&lt;p&gt;&lt;strong&gt;1&lt;/strong&gt; - The RPM values for a player depends on the team he plays, so the added RPM value of a player is actually his effectiveness when he was in his previous team. Further information about the derivation and indication of Real Plus\Minus values can be found &lt;a href=&quot;http://deadspin.com/just-what-the-hell-is-real-plus-minus-espns-new-nba-s-1560361469&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2&lt;/strong&gt; - It should be noted that in situations where every team plays with each other - like NBA - it is rather intuitive to figure out the latent ability of each team by simple observation. The BTL algorithm will be more useful in situations where each team does not play with each other; e.g. the NCAA.&lt;/p&gt;</content><author><name>S. Kaan Cetindag</name><email>cetindag.kaan@gmail.com</email></author><category term="bayes" /><category term="NBA finals" /><category term="BTL" /><summary type="html">Application of Bradley-Terry-Luce(BTL) algorithm to determine the latent talent of NBA teams and simulating NBA Finals with these talents</summary></entry><entry><title type="html">Analysis of Non-human Characters in Movies</title><link href="http://localhost:4000/posts/non-human-character-analysis/" rel="alternate" type="text/html" title="Analysis of Non-human Characters in Movies" /><published>2017-04-21T00:00:00+00:00</published><updated>2017-04-21T00:00:00+00:00</updated><id>http://localhost:4000/posts/non-human-character-analysis</id><content type="html" xml:base="http://localhost:4000/posts/non-human-character-analysis/">&lt;p&gt;After watching the latest Star Wars movie, I realized that throughout the whole movie, the only character I liked and related to was the rebel hacked robot K-2SO. This wasn’t because rest of the characters were badly written or lacked any depth. Except for Chirrut Îmwe, I really did not get that character as he was somewhere between a comic relief and a wise mentor, but, I digress and this is not a movie review post. After some retrospection I realized that this was the case for most of the movies with non-human characters(NHC) such as the Lord of the Rings franchise, Harry Potter franchise, Pan’s Labyrinth, Wall-E and etc.&lt;/p&gt;
 
 &lt;p&gt;To continue our example of Star Wars, throughout the whole series, there are multiple NHC’s with varying importance on the storyline and all of them - except the infamous JarJar - are adored and some are so culturally ingrained they became the public face of the movie&lt;sup&gt;&lt;a href=&quot;http://www.dailymail.co.uk/news/article-3366666/Luke-president-Storm-Troopers-raid-White-House-new-Star-Wars-film-expects-rake-200m-box-office-weekend.html&quot;&gt;[1]&lt;/a&gt;&lt;/sup&gt;. Even though this can be linked to the fact that those characters are movie specific and it is relatively easier to identify the whole movie - even franchise - from a single movie specific character, it is evident that the use of NHC’s use an important role in story telling. Other than these, examples exist that span genres other than science fiction and fantasy such as romcoms and children movies, as they can include animals, objects and imaginary characters as NHC’s.&lt;/p&gt;
 
@@ -12,7 +73,7 @@
 &lt;ul&gt;
   &lt;li&gt;The dataset was scraped from &lt;a href=&quot;http://www.boxofficemojo.com/yearly/chart/&quot;&gt;this website&lt;/a&gt; using BeautifulSoup.&lt;/li&gt;
   &lt;li&gt;All of the animations were removed due to the fact that the effect of NHC’s as described above is intrinsic to animations and including them in the analysis seemed redundant, but given the fact that one third of dataset were animations, the effect of NHC’s is already evident.&lt;/li&gt;
-  &lt;li&gt;The gross box office values are adjusted for infilation but the change in total number of theatres through the years is not accounted for. That’s why I used &lt;script type=&quot;math/tex&quot;&gt;\frac{Gross Box Office}{no. of Theatres}&lt;/script&gt; to get the avreage box office of a movie in a theatre.&lt;/li&gt;
+  &lt;li&gt;The gross box office values are adjusted for infilation but the change in total number of theatres through the years is not accounted for. That’s why I used &lt;script type=&quot;math/tex&quot;&gt;\frac{Gross Box Office}{no.ofTheatres}&lt;/script&gt; to get the avreage box office of a movie in a theatre.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/NHC/gross_vs_NHC.png&quot; alt=&quot;gross_vs_NHC&quot; /&gt;&lt;/p&gt;
