@@ -21,13 +21,13 @@ A couple of points regarding the analysis are:
 * All of the animations were removed due to the fact that the effect of NHC's as described above is intrinsic to animations and including them in the analysis seemed redundant, but given the fact that one third of dataset were animations, the effect of NHC's is already evident.
 * The gross box office values are adjusted for infilation but the change in total number of theatres through the years is not accounted for. That's why I used $$\frac{Gross Box Office}{no.ofTheatres}$$ to get the avreage box office of a movie in a theatre.
 
-![gross_vs_NHC](/assets/images/NHC/gross_vs_NHC.png)
+<iframe width="900" height="800" frameborder="0" scrolling="no" src="//plot.ly/~kaancet/56.embed"></iframe>
 
 The graph shows that the amount of NHC's in a movie positevly effects the gross box office, but it should be noted that the data is, in a sense, 'corrupt', as in the amount of NHC's was determined by me with no concrete definition in mind. Plus, the existence of a NHC might not be directly correlated with the movie box office, considering short and\or background appearences by NHC's, which does not alter the overall course of events in the stroyline. Although I tried my best to not include these NHC's, the dataset is still inherently biased.
 
 To be able to have less biased results I decided to investigate the NHC's in a more confined environment, namely in the Star Wars franchise. I found [this list](http://www.imdb.com/list/ls031379663/) and used the given NHC minutes.
 
-![starwars_NHC](/assets/images/NHC/starwars_NHC.png)
+<iframe width="900" height="800" frameborder="0" scrolling="no" src="//plot.ly/~kaancet/58.embed"></iframe>
 
 It turns out there is a strong correlation between NHC minutes in Star Wars movies and that movies' box office success and this still holds if we treat Star Wars IV: A New Hope as an outlier, taking into account the science fiction craze and being one of the early decent sci-fi movies.
 

@@ -181,7 +181,7 @@ timezone: Asia/Istanbul
 
 
 # Plugins
-gems:
+plugins:
   - jekyll-paginate
   - jekyll-sitemap
   - jekyll-gist
@@ -249,3 +249,4 @@ defaults:
       related: true
 
 theme: minimal-mistakes-jekyll
+
