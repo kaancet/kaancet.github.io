@@ -12,7 +12,7 @@ One of the tools that plays a crucial role in this neuroscientific expansion is 
 
 A standard EEG signal series may look like this:
 
-<iframe width="900" height="800" frameborder="0" scrolling="no" src="//plot.ly/~kaancet/81.embed"></iframe>
+<iframe width="900" height="800" frameborder="0" scrolling="no" src="//plot.ly/~kaancet/72.embed"></iframe>
 
 The figure above shows three different samples. It is obvious that they are different and <span style="color:blue">blue</span> and <span style="color:orange">orange</span> samples are possibly resultant of some underlying phenomena, but overall the series data is not very informative to an untrained eye such as myself. To derive information from these signals multiple methods are used to extract features[1], and classify signals[2]. These methods provide valuable information and help derive useful conclusions from the EEG measurements in compact numerical representations. 
 
@@ -20,7 +20,7 @@ But since us humans are highly dependent on our visual perception, I wante to cr
 
 The resulting figure looks something like this:
 
-[neurocircle gif](\assets\images\NeuroCircle\neurocircle.gif)
+![neurocircle gif](/assets/images/NeuroCircle/neurocircle.gif)
 
 Each branch in the figure represents a seperate EEG measurement. The locations of branches are currently homogenously dispersed in a circle but can be changed to convey another information derived from the analysis. Since the figure has a circular form, the visualization method is aptly called **NeuroCircle**
 
@@ -34,7 +34,7 @@ A Python script calculates the statistics for each EEG sample and Proceesing use
 
 The EEG signals that were shown as time-series look like this:
 
-[select_samples](\assets\images\NeuroCircle\samples.gif)
+![select_samples](/assets/images/NeuroCircle/samples.gif)
 
 The long branches being the <span style="color:blue">blue</span> and <span style="color:orange">orange</span> smaples, respectively. 
 
@@ -43,4 +43,5 @@ The EEG signals used for this implementation was acquired from [here](http://epi
 <a name="foot1"></a>
 <hr style="width: 300px">
 **1** - A. Al-Fahoum and A. Al-Fraihat, "Methods of EEG Signal Features Extraction Using Linear Analysis in Frequency and Time-Frequency Domains", ISRN Neuroscience, vol. 2014, pp. 1-7, 2014.
+
 **2** - T. Felzer and B. Freisleben, "Analyzing EEG signals using the probability estimating guarded neural classifier", IEEE Transactions on Neural Systems and Rehabilitation Engineering, vol. 11, no. 4, pp. 361-371, 2003.
