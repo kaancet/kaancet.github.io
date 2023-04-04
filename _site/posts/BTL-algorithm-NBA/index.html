@@ -1,0 +1,609 @@
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>            NBA Finals prediction using BTL Algorithm      csnfrt      </title>
+
+
+
+
+<meta name="description" content="Application of Bradley-Terry-Luce (BTL) algorithm to determine the latent talent of NBA teams and simulating NBA Finals with these talents">
+
+
+
+
+<meta property="og:locale" content="en">
+<meta property="og:site_name" content="csnfrt">
+<meta property="og:title" content="NBA Finals prediction using BTL Algorithm">
+
+
+  <link rel="canonical" href="http://localhost:4000/posts/BTL-algorithm-NBA/">
+  <meta property="og:url" content="http://localhost:4000/posts/BTL-algorithm-NBA/">
+
+
+
+  <meta property="og:description" content="Application of Bradley-Terry-Luce (BTL) algorithm to determine the latent talent of NBA teams and simulating NBA Finals with these talents">
+
+
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2017-06-15T00:00:00+03:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "S. Kaan Cetindag",
+      "url" : "http://localhost:4000",
+      "sameAs" : "-https://facebook.com/kaan.cetindag.93 -https://tr.linkedin.com/in/kaan-çetindağ-a1a61387"
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://localhost:4000/feed.xml" type="application/atom+xml" rel="alternate" title="csnfrt Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript" ></script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://localhost:4000/assets/css/main.css">
+
+<meta http-equiv="cleartype" content="on">
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <button><div class="navicon"></div></button>
+        <ul class="visible-links">
+          <li class="masthead__menu-item masthead__menu-item--lg"><a href="http://localhost:4000/">csnfrt</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/blogposts/">Posts</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/portfolio/">Portfolio</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/about/">About</a></li>
+          
+        </ul>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://localhost:4000/assets/images/kaan-photo.jpg" class="author__avatar" alt="S. Kaan Cetindag" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">S. Kaan Cetindag</h3>
+    
+      <p class="author__bio" itemprop="description">
+        Single sentence super awesome biography.
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+          <i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> <span itemprop="name">Leuven, BE</span>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:cetindag.kaan@gmail.com">
+            <meta itemprop="email" content="cetindag.kaan@gmail.com" />
+            <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://www.facebook.com/kaan.cetindag.93" itemprop="sameAs">
+            <i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook
+          </a>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="https://www.linkedin.com/in/kaan-çetindağ-a1a61387" itemprop="sameAs">
+            <i class="fa fa-fw fa-linkedin-square" aria-hidden="true"></i> LinkedIn
+          </a>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="https://instagram.com/cetindag.kaan" itemprop="sameAs">
+            <i class="fa fa-fw fa-instagram" aria-hidden="true"></i> Instagram
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/kaancet" itemprop="sameAs">
+            <i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+  <li>
+    <a href="/assets/data/kaan_cv.pdf" itemprop="sameAs">
+      <i class="fa fa-fw fa-file-pdf-o" aria-hidden="true"></i>
+      Resume
+    </a>
+  </li>
+
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="NBA Finals prediction using BTL Algorithm">
+    <meta itemprop="description" content="Application of Bradley-Terry-Luce (BTL) algorithm to determine the latent talent of NBA teams and simulating NBA Finals with these talents">
+    <meta itemprop="datePublished" content="June 15, 2017">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">NBA Finals prediction using BTL Algorithm
+</h1>
+          
+            <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  4 minute read
+</p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        <p>The Bradley-Terry-Luce(BTL) Algorithm assesses the talent of contestants based on one-on-one matches. It uses pairwise comparisons to estimate a single parameter that approximates the latent ability of the contestant. The BTL algorithm is quite versatile, meaning the result of matches can be a subjective ranking or objective like a win\lose\draw scenario, as long as the results are consistent throughout the data. The BTL model assumes that the probability of team \(i\) beating team \(j\) (\(i \triangleright j\)) will depend on their latent abilities.</p>
+
+\[p(i \triangleright j | \alpha) = \sigma (\frac{\alpha_i - \alpha_j}{scale})\]
+
+<p>where <strong>\(\alpha\)</strong> is the \(T \times 1\) latent ability vector, \(\sigma(x) = \frac{1}{1+e^{(-x)}}\) is the sigmoid function and \(scale\) is used as a normalizing term for rankings. Basically, under this model, higher the difference between the latent ability of team \(i\) and team \(j\), higher the probability of team \(i\) beating team \(j\).</p>
+
+<p>When dealing with single player contestants, it is easy to link different aspects of the player into a single latent ability parameter with simple assumptions, but when teams are considered this task is relatively harder. In our scenario, for example, changes in team roster, player injuries &amp; rest days and team chemistry all play a role in a teams performance and therefore affect the latent ability of the team. In order to account for these, a posterior latent ability vector was used and some assumptions were made:</p>
+
+<ul>
+  <li>Team records - dichotomous outcome(win\lose) - are the talent indicator; i.e. score marigins are omitted.</li>
+  <li>Temporary changes in team rosters - rested, suspended players - does not alter the overall team talent</li>
+  <li>Team chemistry, player usage and coaching effects are omitted.</li>
+</ul>
+
+<p><br />
+To get the posterior latent ability vector of teams, first we need to establish a prior distribution. This was done by using the 2015-16 Regular Season records and to account for trades between teams, the difference in Real Plus\Minus(RPM) values of traded players were added<sup><a href="#foot1">1</a></sup>. For example, for Chicago Bulls the prior latent ability:</p>
+
+<p>\(\alpha_{CHI}^{15-16} = Wins_{CHI}^{15-16} + \Delta TotalRPM^{16-17}\).</p>
+
+<p>We can then define the game data matrix \(M^{16-17}\) and using this with our derived prior distribution we can get the posterior latent ability distributions of teams before they enter the playoffs.</p>
+
+\[p(\alpha|M^{16-17}) \propto p(M^{16-17}|\alpha)p(\alpha^{15-16})\]
+
+<p>In a regular season, each one of the <a href="http://www.nba.com/teams">thirty NBA teams</a> plays 82 games with each other and the number of games Team A plays with Team B depends on their conferences. Each team plays 3-4 games with same conference teams (each conference has 15 teams, a given team plays 4 games with 10, and 3 games with 4 same-conference teams) and 2 games with other conference teams. For example, Chicago Bulls played 4 games with Cleveland Cavaliers and 2 games with Golden State Warriors in 2016-17 Regular Season. So, the regular season provides a useful dataset that can be used in a BTL implementation, since each team plays with each other at least 2 times<sup><a href="#foot1">2</a></sup>.</p>
+
+<p>Scraping the 2016-17 season standings from <a href="https://www.basketball-reference.com/leagues/NBA_2017.html">here</a>, and mapping them onto a grid, where the y-axis is the winning and the x-axis is the losing team, we get a match result matrix, <strong>\(M^{16-17}\)</strong>, where darker shades indicate high number of wins against the other team. As expected the values in the diagonal of the matrix are zero.</p>
+
+<p><img src="/assets/images/NBABayes/win_map.png" alt="team_win_map" /></p>
+
+<p>The maximum likelihood of the model is given by:</p>
+
+\[p(M^{16-17}|\alpha) = \prod_{ij}[\sigma(\alpha_i-\alpha_j)]^{M_{ij}}\]
+
+<p>where \(M_{ij}\) indicates the amount of times team \(i\) beat team \(j\).</p>
+
+<p>To get a distribution of each teams latent talent, not the talent difference between the teams but the the talent difference compared to the scaling factor - 82 in NBA case - is used. \(\alpha^{league}_i\) in this case is all the possible victories team \(i\) can get:</p>
+
+\[L \equiv \log p(X|\alpha) = \sum_{i,j} M_{ij}\log\sigma(\alpha^{league}_i-\alpha_j) + M_{ij}\log(1-\sigma(\alpha^{league}_i-\alpha_j))\]
+
+<p>taking the exponential of the result will then give us a team talent distribution, which we will randomly pick from.</p>
+
+<p>Below are all the <em>picked</em> talents:</p>
+
+<p><img src="/assets/images/NBABayes/post_talents.png" alt="post_talents" /></p>
+
+<p>After acquiring the posterior talents of all of the teams, we can use the talents of the teams that made it to the playoffs and implement an iterative process that matches the teams and simulates the series games by:</p>
+
+\[p(i \triangleright j | \alpha) = \sigma (\frac{\alpha_i - \alpha_j}{scale})\]
+
+<p>The simulation can sometimes give unexpected results, because it treats each game as an independent occurance. This is a gross misrepresentation of NBA playoff series as each game heavily depends on previous games and home court advantages. Even though, after running the simulation several times, the results are generally in alignment with found latent talents of teams and Golden State Warriors plays NBA Finals most of the time.</p>
+
+<p>All in all, we can confidently say that we predicted the 2017 NBA Finals pretty accurately as it can be seen below, and yes <strong>cherry picking was used to obtain this result</strong>.</p>
+
+<p><img src="/assets/images/NBABayes/final_bracket.png" alt="final_bracket" /></p>
+
+<p>This was a final group project done with my friends Onur Alten and Feyzullah Alim Koyuncu. 
+<a name="foot1"></a></p>
+<hr style="width: 300px" />
+
+<p><strong>1</strong> - The RPM values for a player depends on the team he plays, so the added RPM value of a player is actually his effectiveness when he was in his previous team. Further information about the derivation and indication of Real Plus\Minus values can be found <a href="http://deadspin.com/just-what-the-hell-is-real-plus-minus-espns-new-nba-s-1560361469">here</a></p>
+
+<p><strong>2</strong> - It should be noted that in situations where every team plays with each other - like NBA - it is rather intuitive to figure out the latent ability of each team by simple observation. The BTL algorithm will be more useful in situations where each team does not play with each other; e.g. the NCAA.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="http://localhost:4000/tags/#bayes" class="page__taxonomy-item" rel="tag">bayes</a><span class="sep">, </span>
+    
+      
+      
+      <a href="http://localhost:4000/tags/#btl" class="page__taxonomy-item" rel="tag">BTL</a><span class="sep">, </span>
+    
+      
+      
+      <a href="http://localhost:4000/tags/#nba-finals" class="page__taxonomy-item" rel="tag">NBA finals</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="http://localhost:4000/categories/#posts" class="page__taxonomy-item" rel="tag">posts</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-06-15T00:00:00+03:00">June 15, 2017</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=NBA Finals prediction using BTL Algorithm http://localhost:4000/posts/BTL-algorithm-NBA/" class="btn btn--twitter" title="Share on Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/posts/BTL-algorithm-NBA/" class="btn btn--facebook" title="Share on Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=http://localhost:4000/posts/BTL-algorithm-NBA/" class="btn btn--google-plus" title="Share on Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/posts/BTL-algorithm-NBA/" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="http://localhost:4000/posts/non-human-character-analysis/" class="pagination--pager" title="Analysis of Non-human Characters in Movies
+">Previous</a>
+    
+    
+      <a href="http://localhost:4000/posts/EEG-signal-visualization/" class="pagination--pager" title="NeuroCircle: An Alternative EEG Signal Visualization
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript" ></script>
+
+  
+  
+    <div class="page__related">
+      
+        <h4 class="page__related-title">You May Also Enjoy</h4>
+      
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://localhost:4000/posts/Study-of-perceived-motion/" rel="permalink">A study of perceived motion, Part I
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  4 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">
+</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://localhost:4000/posts/EEG-signal-visualization/" rel="permalink">NeuroCircle: An Alternative EEG Signal Visualization
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  2 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">An alternative visualization of EEG signals
+</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://localhost:4000/posts/non-human-character-analysis/" rel="permalink">Analysis of Non-human Characters in Movies
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  3 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Some thoughts and analysis on the role of non-human characters in movies
+</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://localhost:4000/posts/room-sound-level-detection/" rel="permalink">Room Sound Level Detection with Wireless Microphones
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  5 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Detection of decibel value inside a room with wireless microphones
+</p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+</div>
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+    
+    
+    
+      <li><a href="http://github.com/kaancet"><i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    <li><a href="http://localhost:4000/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2023 S. Kaan Cetindag. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+      </footer>
+    </div>
+
+    <script src="http://localhost:4000/assets/js/main.min.js"></script>
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-91443495-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+    
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  </body>
+</html>

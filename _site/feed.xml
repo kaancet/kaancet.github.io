@@ -1,197 +1,313 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-01-12T09:54:16+03:00</updated><id>http://localhost:4000/</id><title type="html">csnfrt</title><subtitle>An amazing website.</subtitle><author><name>S. Kaan Cetindag</name><email>cetindag.kaan@gmail.com</email></author><entry><title type="html">NBA Finals prediction using BTL Algorithm</title><link href="http://localhost:4000/posts/BTL-algorithm-NBA/" rel="alternate" type="text/html" title="NBA Finals prediction using BTL Algorithm" /><published>2017-06-15T00:00:00+03:00</published><updated>2017-06-15T00:00:00+03:00</updated><id>http://localhost:4000/posts/BTL-algorithm-NBA</id><content type="html" xml:base="http://localhost:4000/posts/BTL-algorithm-NBA/">&lt;p&gt;The Bradley-Terry-Luce(BTL) Algorithm assesses the talent of contestants based on one-on-one matches. It uses pairwise comparisons to estimate a single parameter that approximates the latent ability of the contestant. The BTL algorithm is quite versatile, meaning the result of matches can be a subjective ranking or objective like a win\lose\draw scenario, as long as the results are consistent throughout the data. The BTL model assumes that the probability of team &lt;script type=&quot;math/tex&quot;&gt;i&lt;/script&gt; beating team &lt;script type=&quot;math/tex&quot;&gt;j&lt;/script&gt; (&lt;script type=&quot;math/tex&quot;&gt;i \triangleright j&lt;/script&gt;) will depend on their latent abilities.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2023-04-04T11:09:01+03:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">csnfrt</title><subtitle>An amazing website.</subtitle><author><name>S. Kaan Cetindag</name><email>cetindag.kaan@gmail.com</email></author><entry><title type="html">A study of perceived motion, Part I</title><link href="http://localhost:4000/posts/Study-of-perceived-motion/" rel="alternate" type="text/html" title="A study of perceived motion, Part I" /><published>2022-03-22T00:00:00+03:00</published><updated>2022-03-22T00:00:00+03:00</updated><id>http://localhost:4000/posts/Study-of-perceived-motion</id><content type="html" xml:base="http://localhost:4000/posts/Study-of-perceived-motion/"><![CDATA[<p>Motion is change. More specifically, change in <strong>position</strong> with respect to <strong>time</strong>, but the perception of motion doesn’t necessarily has to be due to actual change in an objects physical position. Optical illusions are the best examples of this, where a static image looks like there is some sort of movement.</p>
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;p(i \triangleright j | \alpha) = \sigma (\frac{\alpha_i - \alpha_j}{scale})&lt;/script&gt;
+<center>
+    <img src="/assets/images/perceived_motion/optical_illusion.jpg" alt="optical illusion" width="500" height="500" />
+</center>
 
-&lt;p&gt;where &lt;strong&gt;&lt;script type=&quot;math/tex&quot;&gt;\alpha&lt;/script&gt;&lt;/strong&gt; is the &lt;script type=&quot;math/tex&quot;&gt;T \times 1&lt;/script&gt; latent ability vector, &lt;script type=&quot;math/tex&quot;&gt;\sigma(x) = \frac{1}{1+e^{(-x)}}&lt;/script&gt; is the sigmoid function and &lt;script type=&quot;math/tex&quot;&gt;scale&lt;/script&gt; is used as a normalizing term for rankings. Basically, under this model, higher the difference between the latent ability of team &lt;script type=&quot;math/tex&quot;&gt;i&lt;/script&gt; and team &lt;script type=&quot;math/tex&quot;&gt;j&lt;/script&gt;, higher the probability of team &lt;script type=&quot;math/tex&quot;&gt;i&lt;/script&gt; beating team &lt;script type=&quot;math/tex&quot;&gt;j&lt;/script&gt;.&lt;/p&gt;
+<p>If you look closely you can see the rings around the pink circles have black and white portions and they rotate in each row and column. The rotation is the same for both the rows and the columns so each diagonal has the same rotation amount for the ring. Additionally there is a slight color difference in blocks of circles in the same diagonal axis. Together, these individual and local differences create the perception of a digaonal wave motion perpendicular to the diagonal axis of ring orientations and color differences.</p>
 
-&lt;p&gt;When dealing with single player contestants, it is easy to link different aspects of the player into a single latent ability parameter with simple assumptions, but when teams are considered this task is relatively harder. In our scenario, for example, changes in team roster, player injuries &amp;amp; rest days and team chemistry all play a role in a teams performance and therefore affect the latent ability of the team. In order to account for these, a posterior latent ability vector was used and some assumptions were made:&lt;/p&gt;
+<p>Very cool, very sexy. This is due to your brain spazzing out because it tries to bridge the differences by predicting the missing information, which on this case does not exist. This how our brain operates when processing <a href="https://neurosciencenews.com/prediction-brain-21183/">sensory information</a>.</p>
 
-&lt;ul&gt;
-  &lt;li&gt;Team records - dichotomous outcome(win\lose) - are the talent indicator; i.e. score marigins are omitted.&lt;/li&gt;
-  &lt;li&gt;Temporary changes in team rosters - rested, suspended players - does not alter the overall team talent&lt;/li&gt;
-  &lt;li&gt;Team chemistry, player usage and coaching effects are omitted.&lt;/li&gt;
-&lt;/ul&gt;
+<p>“Well, why is that information missing?” you might ask. Because that mushy fat tissue inside our cranium can’t keep up with our ADHD riddled gaze jumping all over the visual space, so it processes some of the information and tries to fill in the blanks while you’re not looking, pun intended. This way it conserves energy and also rapidly serves you information that is crucial for your survival, like the tiger camouflaged among the tall grass or the month in expiry date on your 6-month-old almond milk that you bought in an attempt to live a “healthier” life but forgot about it the next day.</p>
 
-&lt;p&gt;&lt;br /&gt;
-To get the posterior latent ability vector of teams, first we need to establish a prior distribution. This was done by using the 2015-16 Regular Season records and to account for trades between teams, the difference in Real Plus\Minus(RPM) values of traded players were added&lt;sup&gt;&lt;a href=&quot;#foot1&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;. For example, for Chicago Bulls the prior latent ability:&lt;/p&gt;
+<p>Another way we perceive motion - that doesn’t exploit our brains attempt to be efficient - occurs when we observe multiple individual object behaving in a semi-organized way, like a swarm. The best examples for this are the shapes and patterns that are created by migrating swallows.</p>
 
-&lt;p&gt;&lt;script type=&quot;math/tex&quot;&gt;\alpha_{CHI}^{15-16} = Wins_{CHI}^{15-16} + \Delta TotalRPM^{16-17}&lt;/script&gt;.&lt;/p&gt;
+<center>
+    <video width="400" controls="">
+    <source src="/assets/images/perceived_motion/migration.mp4" type="video/mp4" />
+    Your browser does not support HTML video.
+    </video>
+</center>
 
-&lt;p&gt;We can then define the game data matrix &lt;script type=&quot;math/tex&quot;&gt;M^{16-17}&lt;/script&gt; and using this with our derived prior distribution we can get the posterior latent ability distributions of teams before they enter the playoffs.&lt;/p&gt;
+<p>Obviously there is motion here; individual birds are flying, which then creates these “blobs” of dark regions with higher bird concentrations that move around. But the movement of the flock is not organized or coreographed, it occurs as a result of each bird flying under a set of constraints, such as proximity to its neighbours, direction of flight of its neighbours and so on. These kind of <a href="https://en.wikipedia.org/wiki/Swarm_behaviour">swarm behaviors</a> are already well studied.</p>
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;p(\alpha|M^{16-17}) \propto p(M^{16-17}|\alpha)p(\alpha^{15-16})&lt;/script&gt;
+<p>For now I will only focus on the visual aspect of it, where simple motion of individuals give rise to a global perceived motion, without any local constraints on motion of indivduals but rather having a constant frequency difference between individuals, which is determined by $BLABLA$ in the equation below. For this purpose, I will create a grid of individual objects and try objects to generate a global motion. The oscillations are determined by the coordinates of the pill in the grid and we can increase the weight of each coordinate.</p>
 
-&lt;p&gt;In a regular season, each one of the &lt;a href=&quot;http://www.nba.com/teams&quot;&gt;thirty NBA teams&lt;/a&gt; plays 82 games with each other and the number of games Team A plays with Team B depends on their conferences. Each team plays 3-4 games with same conference teams (each conference has 15 teams, a given team plays 4 games with 10, and 3 games with 4 same-conference teams) and 2 games with other conference teams. For example, Chicago Bulls played 4 games with Cleveland Cavaliers and 2 games with Golden State Warriors in 2016-17 Regular Season. So, the regular season provides a useful dataset that can be used in a BTL implementation, since each team plays with each other at least 2 times&lt;sup&gt;&lt;a href=&quot;#foot1&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+<p>Below is a grid of our sexy little <em>pills</em>(<em>Why pills? Because I recently watched Dopesick and my subconcious is apparently very impressionable, that’s why.</em>), rotating in their own frequencies:</p>
 
-&lt;p&gt;Scraping the 2016-17 season standings from &lt;a href=&quot;https://www.basketball-reference.com/leagues/NBA_2017.html&quot;&gt;here&lt;/a&gt;, and mapping them onto a grid, where the y-axis is the winning and the x-axis is the losing team, we get a match result matrix, &lt;strong&gt;&lt;script type=&quot;math/tex&quot;&gt;M^{16-17}&lt;/script&gt;&lt;/strong&gt;, where darker shades indicate high number of wins against the other team. As expected the values in the diagonal of the matrix are zero.&lt;/p&gt;
+<figure class="half">
+  <table style="border: 0px">
+    <tr>
+      <td style="border: 0px">
+        <img src="/assets/images/perceived_motion/frames_rot.gif" alt="rotate_grid" width="450" height="450" />
+      </td>
+    </tr>
+  </table>
+</figure>
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/NBABayes/win_map.png&quot; alt=&quot;team_win_map&quot; /&gt;&lt;/p&gt;
+<p>Simply beautiful. If we just focus on individual pills on the element, we can see all they do is rotate in their own speed, which is dependent on their coordinates. This creates a neighbouring relationship between neighbouring pills, but that is kind of what we want because that’s how swarm behavior emerges too.</p>
 
-&lt;p&gt;The maximum likelihood of the model is given by:&lt;/p&gt;
+<p>You can see the wave traveling from the top left to the bottom right. The “wavelength” of this wave also changes as the pattern keeps evolvong. In addition, an alternative diagonal grid pattern occurs once in a while.</p>
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;p(M^{16-17}|\alpha) = \prod_{ij}[\sigma(\alpha_i-\alpha_j)]^{M_{ij}}&lt;/script&gt;
+<p>We can try changing other properties such as the size and color of the pills in the grid:</p>
 
-&lt;p&gt;where &lt;script type=&quot;math/tex&quot;&gt;M_{ij}&lt;/script&gt; indicates the amount of times team &lt;script type=&quot;math/tex&quot;&gt;i&lt;/script&gt; beat team &lt;script type=&quot;math/tex&quot;&gt;j&lt;/script&gt;.&lt;/p&gt;
+<figure class="half">
+  <table style="border: 0px">
+    <tr>
+      <td style="border: 0px">
+        <img src="/assets/images/perceived_motion/frames_size.gif" alt="rotate_grid" width="300" height="300" />
+      </td>
+      <td style="border: 0px">
+        <img src="/assets/images/perceived_motion/frames_color.gif" alt="rotate_grid" width="300" height="300" />
+      </td>
+    </tr>
+  </table>
+</figure>
 
-&lt;p&gt;To get a distribution of each teams latent talent, not the talent difference between the teams but the the talent difference compared to the scaling factor - 82 in NBA case - is used. &lt;script type=&quot;math/tex&quot;&gt;\alpha^{league}_i&lt;/script&gt; in this case is all the possible victories team &lt;script type=&quot;math/tex&quot;&gt;i&lt;/script&gt; can get:&lt;/p&gt;
+<p>For the size oscillation the waves are much more clearer, which then morphs into an array of upward <em>moving</em> “impulses” in each column. The color oscillation on the other hand only makes it so we see a global upward moving wave on the grid.</p>
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;L \equiv \log p(X|\alpha) = \sum_{i,j} M_{ij}\log\sigma(\alpha^{league}_i-\alpha_j) + M_{ij}\log(1-\sigma(\alpha^{league}_i-\alpha_j))&lt;/script&gt;
+<p>Well, why stop there we can do all of the above in 3D, and add some camera movement to have some sick “drone-shots” of our 3D grid:</p>
 
-&lt;p&gt;taking the exponential of the result will then give us a team talent distribution, which we will randomly pick from.&lt;/p&gt;
+<figure class="half">
+  <table style="border: 0px">
+    <tr>
+      <td style="border: 0px">
+        <img src="/assets/images/perceived_motion/frames_3d_size.gif" alt="rotate_grid" width="300" height="300" />
+      </td>
+      <td style="border: 0px">
+        <img src="/assets/images/perceived_motion/frames_3d_color.gif" alt="rotate_grid" width="300" height="300" />
+      </td>
+    </tr>
+  </table>
+</figure>
 
-&lt;p&gt;Below are all the &lt;em&gt;picked&lt;/em&gt; talents:&lt;/p&gt;
+<p>The movement of the camera makes it quite hard to perceive a global motion from the individual oscillations because even if we fixate on one location, as our vantage point changes the visual information that needs to be predicted also changes, making it very unlikely to have coherent global motion perception. That being said, the 3D color grid look pretty fucking cool.</p>
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/NBABayes/post_talents.png&quot; alt=&quot;post_talents&quot; /&gt;&lt;/p&gt;
+<p>I planned this to be a two part series, where in the second part I will simulate some swarm behavior on processing. Hopefully it wouldn’t be another 5 years…</p>]]></content><author><name>S. Kaan Cetindag</name><email>cetindag.kaan@gmail.com</email></author><category term="posts" /><category term="motion" /><category term="visualization" /><category term="processing" /><category term="pills" /><category term="waves" /></entry><entry><title type="html">NeuroCircle: An Alternative EEG Signal Visualization</title><link href="http://localhost:4000/posts/EEG-signal-visualization/" rel="alternate" type="text/html" title="NeuroCircle: An Alternative EEG Signal Visualization" /><published>2018-08-06T00:00:00+03:00</published><updated>2018-08-06T00:00:00+03:00</updated><id>http://localhost:4000/posts/EEG-signal-visualization</id><content type="html" xml:base="http://localhost:4000/posts/EEG-signal-visualization/"><![CDATA[<p>The field of neuroscience is becoming more important everyday as our interst in inner workings of our own brains and cognition grows exponentially each day. The words ‘neuro’ and ‘cognitive’ are also becoming buzz words too, being added to words back and forth.</p>
 
-&lt;p&gt;After acquiring the posterior talents of all of the teams, we can use the talents of the teams that made it to the playoffs and implement an iterative process that matches the teams and simulates the series games by:&lt;/p&gt;
+<p>One of the tools that plays a crucial role in this neuroscientific expansion is EEG(Electro encephelo gram), where brain signals are recorded transcranially with electrodes. These recordings are of course coarse averages of all signals in a specific brain region and dont give us the full picture, but combined with other powerful tools such as fMRI and deep brain electrodes, they play an important role in neuroscientific research.</p>
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;p(i \triangleright j | \alpha) = \sigma (\frac{\alpha_i - \alpha_j}{scale})&lt;/script&gt;
+<p>A standard EEG signal series may look like this:</p>
 
-&lt;p&gt;The simulation can sometimes give unexpected results, because it treats each game as an independent occurance. This is a gross misrepresentation of NBA playoff series as each game heavily depends on previous games and home court advantages. Even though, after running the simulation several times, the results are generally in alignment with found latent talents of teams and Golden State Warriors plays NBA Finals most of the time.&lt;/p&gt;
+<iframe width="900" height="800" frameborder="0" scrolling="no" src="//plot.ly/~kaancet/72.embed"></iframe>
 
-&lt;p&gt;All in all, we can confidently say that we predicted the 2017 NBA Finals pretty accurately as it can be seen below, and yes &lt;strong&gt;cherry picking was used to obtain this result&lt;/strong&gt;.&lt;/p&gt;
+<p>The figure above shows three different samples. It is obvious that they are different and <span style="color:blue">blue</span> and <span style="color:orange">orange</span> samples are possibly resultant of some underlying phenomena, but overall the series data is not very informative to an untrained eye such as myself. To derive information from these signals multiple methods are used to extract features[1], and classify signals[2]. These methods provide valuable information and help derive useful conclusions from the EEG measurements in compact numerical representations.</p>
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/NBABayes/final_bracket.png&quot; alt=&quot;final_bracket&quot; /&gt;&lt;/p&gt;
+<p>But since us humans are highly dependent on our visual perception, I wante to create a more visually stimulating representation of signal properties. After attending a <a href="https://www.borusancontemporary.com/tr/bir-baska-hafiza-veri-heykel-ve-Sanat_49">talk</a> by Refik Anadol about utilizing data and algorithms as a tool to create visual and auditory media and seeing his Melting Memories installation, I decided to implement an alternative visualization method for EEG signals. I used Python to extract various signal statistics and used these statistics in Processing as parameters determining the shape and motion of the figure.</p>
 
-&lt;p&gt;This was a final group project done with my friends Onur Alten and Feyzullah Alim Koyuncu. 
-&lt;a name=&quot;foot1&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;hr style=&quot;width: 300px&quot; /&gt;
+<p>The resulting figure looks something like this:</p>
 
-&lt;p&gt;&lt;strong&gt;1&lt;/strong&gt; - The RPM values for a player depends on the team he plays, so the added RPM value of a player is actually his effectiveness when he was in his previous team. Further information about the derivation and indication of Real Plus\Minus values can be found &lt;a href=&quot;http://deadspin.com/just-what-the-hell-is-real-plus-minus-espns-new-nba-s-1560361469&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
+<p><img src="/assets/images/NeuroCircle/neurocircle.gif" alt="neurocircle gif" /></p>
 
-&lt;p&gt;&lt;strong&gt;2&lt;/strong&gt; - It should be noted that in situations where every team plays with each other - like NBA - it is rather intuitive to figure out the latent ability of each team by simple observation. The BTL algorithm will be more useful in situations where each team does not play with each other; e.g. the NCAA.&lt;/p&gt;</content><author><name>S. Kaan Cetindag</name><email>cetindag.kaan@gmail.com</email></author><category term="bayes" /><category term="NBA finals" /><category term="BTL" /><summary type="html">Application of Bradley-Terry-Luce (BTL) algorithm to determine the latent talent of NBA teams and simulating NBA Finals with these talents</summary></entry><entry><title type="html">Analysis of Non-human Characters in Movies</title><link href="http://localhost:4000/posts/non-human-character-analysis/" rel="alternate" type="text/html" title="Analysis of Non-human Characters in Movies" /><published>2017-04-21T00:00:00+03:00</published><updated>2017-04-21T00:00:00+03:00</updated><id>http://localhost:4000/posts/non-human-character-analysis</id><content type="html" xml:base="http://localhost:4000/posts/non-human-character-analysis/">&lt;p&gt;After watching the latest Star Wars movie, I realized that throughout the whole movie, the only character I liked and related to was the rebel hacked robot K-2SO. This wasn’t because rest of the characters were badly written or lacked any depth. Except for Chirrut Îmwe, I really did not get that character as he was somewhere between a comic relief and a wise mentor, but, I digress and this is not a movie review post. After some retrospection I realized that this was the case for most of the movies with non-human characters(NHC) such as the Lord of the Rings franchise, Harry Potter franchise, Pan’s Labyrinth, Wall-E and etc.&lt;/p&gt;
+<p>Each branch in the figure represents a seperate EEG measurement. The locations of branches are currently homogenously dispersed in a circle but can be changed to convey another information derived from the analysis. Since the figure has a circular form, the visualization method is aptly called <strong>NeuroCircle</strong></p>
 
-&lt;p&gt;To continue our example of Star Wars, throughout the whole series, there are multiple NHC’s with varying importance on the storyline and all of them - except the infamous JarJar - are adored and some are so culturally ingrained they became the public face of the movie&lt;sup&gt;&lt;a href=&quot;http://www.dailymail.co.uk/news/article-3366666/Luke-president-Storm-Troopers-raid-White-House-new-Star-Wars-film-expects-rake-200m-box-office-weekend.html&quot;&gt;[1]&lt;/a&gt;&lt;/sup&gt;. Even though this can be linked to the fact that those characters are movie specific and it is relatively easier to identify the whole movie - even franchise - from a single movie specific character, it is evident that the use of NHC’s use an important role in story telling. Other than these, examples exist that span genres other than science fiction and fantasy such as romcoms and children movies, as they can include animals, objects and imaginary characters as NHC’s.&lt;/p&gt;
+<p>For this current example I decided to use mean, standart deviation, kurtosis and the periodicity - which is simply the signal convolved with itself - of the signal to determine the properties of the figure, specifically:</p>
+<ul>
+  <li>Mean -&gt; The color change coefficient of branches</li>
+  <li>Standart Deviation -&gt; The movement speed coefficient of branch points</li>
+  <li>Periodicity -&gt; Length of branches</li>
+  <li>Kurtosis -&gt; Thickness coefficient of the branches</li>
+</ul>
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/NHC/r2-c3po.gif&quot; alt=&quot;r2_and_c3po_gif&quot; /&gt;&lt;/p&gt;
+<p>A Python script calculates the statistics for each EEG sample and Proceesing uses these statistics to initialize branches.</p>
 
-&lt;p&gt;I think one of the reasons that NHC’s are a strong story telling tool is that they are not bounded by human nature, which includes human psychology, physiology and - most importantly - philosophy. It is possible to create completely absurd and unconventional characters without having to fit them into human morals and ideas. This makes it possible to establish a more customized and flexible storyline because you can craft an NHC that will best suit your plot. Dobby and R2D2 helping out their respective protagonist crews is an example to this as it makes it possible to push the storyline to its boundaries.&lt;/p&gt;
+<p>The EEG signals that were shown as time-series look like this:</p>
 
-&lt;p&gt;To see if there is a correlation between the use of NHC’s and good story telling I wanted to analyze the top 10 grossing movies since 2010.&lt;/p&gt;
+<p><img src="/assets/images/NeuroCircle/samples.gif" alt="select_samples" /></p>
 
-&lt;p&gt;A couple of points regarding the analysis are:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;The dataset was scraped from &lt;a href=&quot;http://www.boxofficemojo.com/yearly/chart/&quot;&gt;this website&lt;/a&gt; using BeautifulSoup.&lt;/li&gt;
-  &lt;li&gt;All of the animations were removed due to the fact that the effect of NHC’s as described above is intrinsic to animations and including them in the analysis seemed redundant, but given the fact that one third of dataset were animations, the effect of NHC’s is already evident.&lt;/li&gt;
-  &lt;li&gt;The gross box office values are adjusted for infilation but the change in total number of theatres through the years is not accounted for. That’s why I used &lt;script type=&quot;math/tex&quot;&gt;\frac{Gross Box Office}{no.ofTheatres}&lt;/script&gt; to get the avreage box office of a movie in a theatre.&lt;/li&gt;
-&lt;/ul&gt;
+<p>The long branches being the <span style="color:blue">blue</span> and <span style="color:orange">orange</span> smaples, respectively.</p>
 
-&lt;iframe width=&quot;900&quot; height=&quot;800&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot; src=&quot;//plot.ly/~kaancet/56.embed&quot;&gt;&lt;/iframe&gt;
+<p>The EEG signals used for this implementation was acquired from <a href="http://epileptologie-bonn.de/cms/front_content.php?idcat=193&amp;lang=3&amp;changelang=3">here</a>, which has 100 normal and epileptic EEG recordings. At this point this was more of an aesthetic driven project and the stats to be used as parameters were chosen randomly, and more specifically ease of implementation, but can easily be tweaked to be to include different statistics based on area specific details of the measurements.</p>
 
-&lt;p&gt;The graph shows that the amount of NHC’s in a movie positevly effects the gross box office, but it should be noted that the data is, in a sense, ‘corrupt’, as in the amount of NHC’s was determined by me with no concrete definition in mind. Plus, the existence of a NHC might not be directly correlated with the movie box office, considering short and\or background appearences by NHC’s, which does not alter the overall course of events in the stroyline. Although I tried my best to not include these NHC’s, the dataset is still inherently biased.&lt;/p&gt;
+<p><a name="foot1"></a></p>
+<hr style="width: 300px" />
 
-&lt;p&gt;To be able to have less biased results I decided to investigate the NHC’s in a more confined environment, namely in the Star Wars franchise. I found &lt;a href=&quot;http://www.imdb.com/list/ls031379663/&quot;&gt;this list&lt;/a&gt; and used the given NHC minutes.&lt;/p&gt;
+<p><strong>1</strong> - A. Al-Fahoum and A. Al-Fraihat, “Methods of EEG Signal Features Extraction Using Linear Analysis in Frequency and Time-Frequency Domains”, ISRN Neuroscience, vol. 2014, pp. 1-7, 2014.</p>
 
-&lt;iframe width=&quot;900&quot; height=&quot;800&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot; src=&quot;//plot.ly/~kaancet/58.embed&quot;&gt;&lt;/iframe&gt;
+<p><strong>2</strong> - T. Felzer and B. Freisleben, “Analyzing EEG signals using the probability estimating guarded neural classifier”, IEEE Transactions on Neural Systems and Rehabilitation Engineering, vol. 11, no. 4, pp. 361-371, 2003.</p>]]></content><author><name>S. Kaan Cetindag</name><email>cetindag.kaan@gmail.com</email></author><category term="posts" /><category term="EEG" /><category term="visualization" /><category term="neurocircle" /><category term="processing" /><category term="python" /><summary type="html"><![CDATA[An alternative visualization of EEG signals]]></summary></entry><entry><title type="html">NBA Finals prediction using BTL Algorithm</title><link href="http://localhost:4000/posts/BTL-algorithm-NBA/" rel="alternate" type="text/html" title="NBA Finals prediction using BTL Algorithm" /><published>2017-06-15T00:00:00+03:00</published><updated>2017-06-15T00:00:00+03:00</updated><id>http://localhost:4000/posts/BTL-algorithm-NBA</id><content type="html" xml:base="http://localhost:4000/posts/BTL-algorithm-NBA/"><![CDATA[<p>The Bradley-Terry-Luce(BTL) Algorithm assesses the talent of contestants based on one-on-one matches. It uses pairwise comparisons to estimate a single parameter that approximates the latent ability of the contestant. The BTL algorithm is quite versatile, meaning the result of matches can be a subjective ranking or objective like a win\lose\draw scenario, as long as the results are consistent throughout the data. The BTL model assumes that the probability of team \(i\) beating team \(j\) (\(i \triangleright j\)) will depend on their latent abilities.</p>
 
-&lt;p&gt;It turns out there is a strong correlation between NHC minutes in Star Wars movies and that movies’ box office success and this still holds if we treat Star Wars IV: A New Hope as an outlier, taking into account the science fiction craze and being one of the early decent sci-fi movies.&lt;/p&gt;
+\[p(i \triangleright j | \alpha) = \sigma (\frac{\alpha_i - \alpha_j}{scale})\]
 
-&lt;p&gt;In conclusion, I believe that the use of NHC’s is a powerful tool that could be integrated in storyelling to create better and out-of-the-box stories. Of course the overall effect of NHC’s to a movie can not be fully understood by only analysing its effect on the movie’s gross box office, but it is the most objective variable that can be studied since quantified commentator insights and public liking measurements can easily be manipulated by generating hype and media presence, further distorting the result. All in all I believe that utilizing NHC’s in moderation and in a classy way - yeah I’m looking at you Jar Jar - is useful both for creative and fiscal(yay capitalism) purposes.&lt;/p&gt;</content><author><name>S. Kaan Cetindag</name><email>cetindag.kaan@gmail.com</email></author><category term="nonhuman characters" /><category term="movies" /><category term="star-wars" /><category term="python" /><summary type="html">Some thoughts and analysis on the role of non-human characters in movies</summary></entry><entry><title type="html">Room Sound Level Detection with Wireless Microphones</title><link href="http://localhost:4000/projects/room-sound-level-detection/" rel="alternate" type="text/html" title="Room Sound Level Detection with Wireless Microphones" /><published>2017-01-14T00:00:00+03:00</published><updated>2017-01-14T00:00:00+03:00</updated><id>http://localhost:4000/projects/room-sound-level-detection</id><content type="html" xml:base="http://localhost:4000/projects/room-sound-level-detection/">&lt;p&gt;I recently undertook a project with one of my friends for a local university here in Istanbul. The project was basically to implement a detection system in a room to monitor the sound level in that room and display it on a screen. The purpose was to inform the people in the room that they were too loud, given the fact that the room was right next to the library.(This was a rather small university and the library was actually a collection of rooms inside the main building.)&lt;/p&gt;
+<p>where <strong>\(\alpha\)</strong> is the \(T \times 1\) latent ability vector, \(\sigma(x) = \frac{1}{1+e^{(-x)}}\) is the sigmoid function and \(scale\) is used as a normalizing term for rankings. Basically, under this model, higher the difference between the latent ability of team \(i\) and team \(j\), higher the probability of team \(i\) beating team \(j\).</p>
 
-&lt;p&gt;The problem was they informed us a bit late that they wanted to do the project with us so we had approximately 3 weeks to design, prototype, test and deploy the whole system. For this we decided to connect the microphone modules to a Raspberry Pi 3 and hook it up to a monitor, since it is pretty fast to setup a Raspberry.&lt;/p&gt;
+<p>When dealing with single player contestants, it is easy to link different aspects of the player into a single latent ability parameter with simple assumptions, but when teams are considered this task is relatively harder. In our scenario, for example, changes in team roster, player injuries &amp; rest days and team chemistry all play a role in a teams performance and therefore affect the latent ability of the team. In order to account for these, a posterior latent ability vector was used and some assumptions were made:</p>
 
-&lt;p&gt;I wanted to work with ESP modules for a long time but never had a chance to try them, so I thought it would be a good idea to implement the microphones with ESP modules to transmit sound signals through WiFi since the room was quite big and it would be ugly and bulky to use wires to transmit the sound signals from the microphones to the Raspberry Pi.&lt;/p&gt;
+<ul>
+  <li>Team records - dichotomous outcome(win\lose) - are the talent indicator; i.e. score marigins are omitted.</li>
+  <li>Temporary changes in team rosters - rested, suspended players - does not alter the overall team talent</li>
+  <li>Team chemistry, player usage and coaching effects are omitted.</li>
+</ul>
 
-&lt;h2 id=&quot;hardware&quot;&gt;Hardware&lt;/h2&gt;
+<p><br />
+To get the posterior latent ability vector of teams, first we need to establish a prior distribution. This was done by using the 2015-16 Regular Season records and to account for trades between teams, the difference in Real Plus\Minus(RPM) values of traded players were added<sup><a href="#foot1">1</a></sup>. For example, for Chicago Bulls the prior latent ability:</p>
 
-&lt;p&gt;The main design goals was to make the microphone modules small, energy efficient and portable. I first set out to implement the system with a battery for portability but trying to overlap energy efficiency and portability proved to be quite hard, as it turns out the ESP modules tend to have an insatiable hunger for power. Although there is a very useful Deep Sleep mode to considerably decrease the power consumption&lt;sup&gt;&lt;a href=&quot;http://www.esp8266.com/wiki/doku.php?id=esp8266_power_usage&quot;&gt;[1]&lt;/a&gt;&lt;/sup&gt;, I didn’t want to implement it because our application needs continuous sound measurement in the room. Because of this the module size was considerably increased due to using relatively high capacity Li-ion batteries, which I scavenged from unused powerbanks.&lt;/p&gt;
+<p>\(\alpha_{CHI}^{15-16} = Wins_{CHI}^{15-16} + \Delta TotalRPM^{16-17}\).</p>
 
-&lt;p&gt;Luckily, after our first deployment the university wanted to put the microphone modules close to the ceiling - to keep them out of students’ reach - and we were able to plug in our modules to power outlets and designed the second modules according to that and added a generic 5V dc plug. (Yes I know, why do they have power outlets on their ceilings?)&lt;/p&gt;
+<p>We can then define the game data matrix \(M^{16-17}\) and using this with our derived prior distribution we can get the posterior latent ability distributions of teams before they enter the playoffs.</p>
 
-&lt;h3 id=&quot;materials-used-for-the-microphone-module&quot;&gt;Materials Used for the Microphone Module&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Electret Microphone&lt;/li&gt;
-  &lt;li&gt;LM386&lt;/li&gt;
-  &lt;li&gt;LM3940&lt;/li&gt;
-  &lt;li&gt;ESP8266-12E&lt;/li&gt;
-  &lt;li&gt;Cap’s and Resistors&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;The schematic of the module can be seen in the image below. Basically, LM386 amplifies the sound signals coming from the electret microphone with A&lt;sub&gt;G&lt;/sub&gt;=20 and the LM3940 ensures that the ESP module gets the 3.3V it needs. The LM386 outputs a signal with a mean of 2.5V and can have a peak-to-peak value of 4V in loud environments. Because of this I added a voltage divider to limit the input to the analog input pin of the ESP module to because in some cases, if the input voltage value exceeds 3V the ESP module freaks out&lt;sup&gt;&lt;a href=&quot;http://esp8266.github.io/Arduino/versions/2.0.0/doc/reference.html#analog-input&quot;&gt;[2]&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/room_sound/schematic.png&quot; alt=&quot;schematic_img&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;software&quot;&gt;Software&lt;/h2&gt;
-
-&lt;p&gt;In the transmitting portion of the system, which is the ESP8266 module, software was mostly establishing the WiFi connection and reading/sending the analog pin, but I also added a watchdog timer to prevent the code from crashing to some extent.&lt;/p&gt;
-
-&lt;div class=&quot;language-cpp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;#include &quot;Arduino.h&quot;
-#include &amp;lt;ESP8266WiFi.h&amp;gt;
-#include &amp;lt;Ticker.h&amp;gt;
-&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ssid&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;istinye&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;password&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;0987654321&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;server&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;10.234.16.130&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;port&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10002&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;watchdogCnt&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;WiFiClient&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;client&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;Ticker&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;secondTick&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;ISRWatchdog&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;watchdogCnt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;watchdogCnt&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;60&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;Serial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Watchdog boom!&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;ESP&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;reset&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;setup&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;Serial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;begin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;115200&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;secondTick&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;attach&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ISRWatchdog&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;Serial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Connecting to &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;Serial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ssid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;WiFi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;begin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ssid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;password&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-
-  &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;WiFi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;status&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;WL_CONNECTED&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;delay&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;500&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;Serial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;.&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;Serial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;WiFi connected&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-
-  &lt;span class=&quot;n&quot;&gt;IPAddress&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;myIP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;WiFi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;softAPIP&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;Serial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;myIP&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;delay&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-
-  &lt;span class=&quot;n&quot;&gt;Serial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;server&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;Serial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;connecting...&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;client&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;connect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;server&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;Serial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;connected&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;Serial&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;connection failed&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;loop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;watchdogCnt&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;c1&quot;&gt;//read the analog pin ADC=A0
-&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;byte&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;resval&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;analogRead&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;client&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;write&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;resval&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;delay&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;As the receiving portion, Raspberry gathers the data from three microphones in data arrays of twenty data point lengths and averages the highest ten of these data points. As it can be seen microphones send analog read values in every 100 milliseconds, thus the decibel value displayed in the monitor is updated in every 2 seconds.&lt;/p&gt;
-
-&lt;h3 id=&quot;calculating-the-db-values&quot;&gt;Calculating the dB values&lt;/h3&gt;
-
-&lt;p&gt;To accurately calculate the dB values we actually need the specifications of the microphone, but because the electret microphones that we used were generic ones with no identification on them, we decided to calculate the relative dB change instead. To achieve this, we calibrated the microphone with a known dB value &lt;strong&gt;V&lt;sub&gt;reference&lt;/sub&gt;&lt;/strong&gt; and plugged it in with the measured value &lt;strong&gt;V&lt;sub&gt;reading&lt;/sub&gt;&lt;/strong&gt; into the below equation:&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;dB = 20\log(\frac{V_{reading}}{V_{reference}})&lt;/script&gt;
-
-&lt;p&gt;The deployed Microphone Module MarkI can be seen below. The box was laser cut from PVC and assambled by hand by me and my friend Yigit 3am in the morning. I will probably update this post after I get the PCB and 3D print a sexier looking case for the Microphone Module MarkII.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/room_sound/microphone_mark1.jpeg&quot; alt=&quot;MIC_mark1_img&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;And here is our baby displaying her skills. The dB values in the gif is pretty high because there was this guy who was very keen on playing the guitar in a student study hall and for some reason nobody seemed fazed by him. A weird school indeed…&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/room_sound/monitor.gif&quot; alt=&quot;monitor_gif&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;All in all, I think we managed to create a decent, working system that was easy to install and use, considering the fact that we had very little time to make it. There are many aspects of the project that can be further improved and I am planning to work on those improvements as I find some free time. First thing I want to look at is the fact that there are three microprocessors that are idle for the most part because they only send data through WiFi. A better algorithm can be implemented to increase the flexibility and the efficiency of the system.&lt;/p&gt;
-
-&lt;p&gt;I want to thank my friend Yigit as he was the one who programmed the Raspberry Pi and handled all the commincation with the university staff.&lt;/p&gt;</content><author><name>S. Kaan Cetindag</name><email>cetindag.kaan@gmail.com</email></author><category term="Hardware" /><category term="ESP8266" /><category term="sound" /><summary type="html">Detection of decibel value inside a room with wireless microphones</summary></entry></feed>
+\[p(\alpha|M^{16-17}) \propto p(M^{16-17}|\alpha)p(\alpha^{15-16})\]
+
+<p>In a regular season, each one of the <a href="http://www.nba.com/teams">thirty NBA teams</a> plays 82 games with each other and the number of games Team A plays with Team B depends on their conferences. Each team plays 3-4 games with same conference teams (each conference has 15 teams, a given team plays 4 games with 10, and 3 games with 4 same-conference teams) and 2 games with other conference teams. For example, Chicago Bulls played 4 games with Cleveland Cavaliers and 2 games with Golden State Warriors in 2016-17 Regular Season. So, the regular season provides a useful dataset that can be used in a BTL implementation, since each team plays with each other at least 2 times<sup><a href="#foot1">2</a></sup>.</p>
+
+<p>Scraping the 2016-17 season standings from <a href="https://www.basketball-reference.com/leagues/NBA_2017.html">here</a>, and mapping them onto a grid, where the y-axis is the winning and the x-axis is the losing team, we get a match result matrix, <strong>\(M^{16-17}\)</strong>, where darker shades indicate high number of wins against the other team. As expected the values in the diagonal of the matrix are zero.</p>
+
+<p><img src="/assets/images/NBABayes/win_map.png" alt="team_win_map" /></p>
+
+<p>The maximum likelihood of the model is given by:</p>
+
+\[p(M^{16-17}|\alpha) = \prod_{ij}[\sigma(\alpha_i-\alpha_j)]^{M_{ij}}\]
+
+<p>where \(M_{ij}\) indicates the amount of times team \(i\) beat team \(j\).</p>
+
+<p>To get a distribution of each teams latent talent, not the talent difference between the teams but the the talent difference compared to the scaling factor - 82 in NBA case - is used. \(\alpha^{league}_i\) in this case is all the possible victories team \(i\) can get:</p>
+
+\[L \equiv \log p(X|\alpha) = \sum_{i,j} M_{ij}\log\sigma(\alpha^{league}_i-\alpha_j) + M_{ij}\log(1-\sigma(\alpha^{league}_i-\alpha_j))\]
+
+<p>taking the exponential of the result will then give us a team talent distribution, which we will randomly pick from.</p>
+
+<p>Below are all the <em>picked</em> talents:</p>
+
+<p><img src="/assets/images/NBABayes/post_talents.png" alt="post_talents" /></p>
+
+<p>After acquiring the posterior talents of all of the teams, we can use the talents of the teams that made it to the playoffs and implement an iterative process that matches the teams and simulates the series games by:</p>
+
+\[p(i \triangleright j | \alpha) = \sigma (\frac{\alpha_i - \alpha_j}{scale})\]
+
+<p>The simulation can sometimes give unexpected results, because it treats each game as an independent occurance. This is a gross misrepresentation of NBA playoff series as each game heavily depends on previous games and home court advantages. Even though, after running the simulation several times, the results are generally in alignment with found latent talents of teams and Golden State Warriors plays NBA Finals most of the time.</p>
+
+<p>All in all, we can confidently say that we predicted the 2017 NBA Finals pretty accurately as it can be seen below, and yes <strong>cherry picking was used to obtain this result</strong>.</p>
+
+<p><img src="/assets/images/NBABayes/final_bracket.png" alt="final_bracket" /></p>
+
+<p>This was a final group project done with my friends Onur Alten and Feyzullah Alim Koyuncu. 
+<a name="foot1"></a></p>
+<hr style="width: 300px" />
+
+<p><strong>1</strong> - The RPM values for a player depends on the team he plays, so the added RPM value of a player is actually his effectiveness when he was in his previous team. Further information about the derivation and indication of Real Plus\Minus values can be found <a href="http://deadspin.com/just-what-the-hell-is-real-plus-minus-espns-new-nba-s-1560361469">here</a></p>
+
+<p><strong>2</strong> - It should be noted that in situations where every team plays with each other - like NBA - it is rather intuitive to figure out the latent ability of each team by simple observation. The BTL algorithm will be more useful in situations where each team does not play with each other; e.g. the NCAA.</p>]]></content><author><name>S. Kaan Cetindag</name><email>cetindag.kaan@gmail.com</email></author><category term="posts" /><category term="bayes" /><category term="NBA finals" /><category term="BTL" /><summary type="html"><![CDATA[Application of Bradley-Terry-Luce (BTL) algorithm to determine the latent talent of NBA teams and simulating NBA Finals with these talents]]></summary></entry><entry><title type="html">Analysis of Non-human Characters in Movies</title><link href="http://localhost:4000/posts/non-human-character-analysis/" rel="alternate" type="text/html" title="Analysis of Non-human Characters in Movies" /><published>2017-04-21T00:00:00+03:00</published><updated>2017-04-21T00:00:00+03:00</updated><id>http://localhost:4000/posts/non-human-character-analysis</id><content type="html" xml:base="http://localhost:4000/posts/non-human-character-analysis/"><![CDATA[<p>After watching the latest Star Wars movie, I realized that throughout the whole movie, the only character I liked and related to was the rebel hacked robot K-2SO. This wasn’t because rest of the characters were badly written or lacked any depth. Except for Chirrut Îmwe, I really did not get that character as he was somewhere between a comic relief and a wise mentor, but, I digress and this is not a movie review post. After some retrospection I realized that this was the case for most of the movies with non-human characters(NHC) such as the Lord of the Rings franchise, Harry Potter franchise, Pan’s Labyrinth, Wall-E and etc.</p>
+
+<p>To continue our example of Star Wars, throughout the whole series, there are multiple NHC’s with varying importance on the storyline and all of them - except the infamous JarJar - are adored and some are so culturally ingrained they became the public face of the movie<sup><a href="http://www.dailymail.co.uk/news/article-3366666/Luke-president-Storm-Troopers-raid-White-House-new-Star-Wars-film-expects-rake-200m-box-office-weekend.html">[1]</a></sup>. Even though this can be linked to the fact that those characters are movie specific and it is relatively easier to identify the whole movie - even franchise - from a single movie specific character, it is evident that the use of NHC’s use an important role in story telling. Other than these, examples exist that span genres other than science fiction and fantasy such as romcoms and children movies, as they can include animals, objects and imaginary characters as NHC’s.</p>
+
+<p><img src="/assets/images/NHC/r2-c3po.gif" alt="r2_and_c3po_gif" /></p>
+
+<p>I think one of the reasons that NHC’s are a strong story telling tool is that they are not bounded by human nature, which includes human psychology, physiology and - most importantly - philosophy. It is possible to create completely absurd and unconventional characters without having to fit them into human morals and ideas. This makes it possible to establish a more customized and flexible storyline because you can craft an NHC that will best suit your plot. Dobby and R2D2 helping out their respective protagonist crews is an example to this as it makes it possible to push the storyline to its boundaries.</p>
+
+<p>To see if there is a correlation between the use of NHC’s and good story telling I wanted to analyze the top 10 grossing movies since 2010.</p>
+
+<p>A couple of points regarding the analysis are:</p>
+<ul>
+  <li>The dataset was scraped from <a href="http://www.boxofficemojo.com/yearly/chart/">this website</a> using BeautifulSoup.</li>
+  <li>All of the animations were removed due to the fact that the effect of NHC’s as described above is intrinsic to animations and including them in the analysis seemed redundant, but given the fact that one third of dataset were animations, the effect of NHC’s is already evident.</li>
+  <li>The gross box office values are adjusted for infilation but the change in total number of theatres through the years is not accounted for. That’s why I used \(\frac{Gross Box Office}{no.ofTheatres}\) to get the avreage box office of a movie in a theatre.</li>
+</ul>
+
+<iframe width="900" height="800" frameborder="0" scrolling="no" src="//plot.ly/~kaancet/56.embed"></iframe>
+
+<p>The graph shows that the amount of NHC’s in a movie positevly effects the gross box office, but it should be noted that the data is, in a sense, ‘corrupt’, as in the amount of NHC’s was determined by me with no concrete definition in mind. Plus, the existence of a NHC might not be directly correlated with the movie box office, considering short and\or background appearences by NHC’s, which does not alter the overall course of events in the stroyline. Although I tried my best to not include these NHC’s, the dataset is still inherently biased.</p>
+
+<p>To be able to have less biased results I decided to investigate the NHC’s in a more confined environment, namely in the Star Wars franchise. I found <a href="http://www.imdb.com/list/ls031379663/">this list</a> and used the given NHC minutes.</p>
+
+<iframe width="900" height="800" frameborder="0" scrolling="no" src="//plot.ly/~kaancet/58.embed"></iframe>
+
+<p>It turns out there is a strong correlation between NHC minutes in Star Wars movies and that movies’ box office success and this still holds if we treat Star Wars IV: A New Hope as an outlier, taking into account the science fiction craze and being one of the early decent sci-fi movies.</p>
+
+<p>In conclusion, I believe that the use of NHC’s is a powerful tool that could be integrated in storyelling to create better and out-of-the-box stories. Of course the overall effect of NHC’s to a movie can not be fully understood by only analysing its effect on the movie’s gross box office, but it is the most objective variable that can be studied since quantified commentator insights and public liking measurements can easily be manipulated by generating hype and media presence, further distorting the result. All in all I believe that utilizing NHC’s in moderation and in a classy way - yeah I’m looking at you Jar Jar - is useful both for creative and fiscal(yay capitalism) purposes.</p>]]></content><author><name>S. Kaan Cetindag</name><email>cetindag.kaan@gmail.com</email></author><category term="posts" /><category term="nonhuman characters" /><category term="movies" /><category term="star-wars" /><category term="python" /><summary type="html"><![CDATA[Some thoughts and analysis on the role of non-human characters in movies]]></summary></entry><entry><title type="html">Room Sound Level Detection with Wireless Microphones</title><link href="http://localhost:4000/posts/room-sound-level-detection/" rel="alternate" type="text/html" title="Room Sound Level Detection with Wireless Microphones" /><published>2017-01-14T00:00:00+03:00</published><updated>2017-01-14T00:00:00+03:00</updated><id>http://localhost:4000/posts/room-sound-level-detection</id><content type="html" xml:base="http://localhost:4000/posts/room-sound-level-detection/"><![CDATA[<p>I recently undertook a project with one of my friends for a local university here in Istanbul. The project was basically to implement a detection system in a room to monitor the sound level in that room and display it on a screen. The purpose was to inform the people in the room that they were too loud, given the fact that the room was right next to the library.(This was a rather small university and the library was actually a collection of rooms inside the main building.)</p>
+
+<p>The problem was they informed us a bit late that they wanted to do the project with us so we had approximately 3 weeks to design, prototype, test and deploy the whole system. For this we decided to connect the microphone modules to a Raspberry Pi 3 and hook it up to a monitor, since it is pretty fast to setup a Raspberry.</p>
+
+<p>I wanted to work with ESP modules for a long time but never had a chance to try them, so I thought it would be a good idea to implement the microphones with ESP modules to transmit sound signals through WiFi since the room was quite big and it would be ugly and bulky to use wires to transmit the sound signals from the microphones to the Raspberry Pi.</p>
+
+<h2 id="hardware">Hardware</h2>
+
+<p>The main design goals was to make the microphone modules small, energy efficient and portable. I first set out to implement the system with a battery for portability but trying to overlap energy efficiency and portability proved to be quite hard, as it turns out the ESP modules tend to have an insatiable hunger for power. Although there is a very useful Deep Sleep mode to considerably decrease the power consumption<sup><a href="http://www.esp8266.com/wiki/doku.php?id=esp8266_power_usage">[1]</a></sup>, I didn’t want to implement it because our application needs continuous sound measurement in the room. Because of this the module size was considerably increased due to using relatively high capacity Li-ion batteries, which I scavenged from unused powerbanks.</p>
+
+<p>Luckily, after our first deployment the university wanted to put the microphone modules close to the ceiling - to keep them out of students’ reach - and we were able to plug in our modules to power outlets and designed the second modules according to that and added a generic 5V dc plug. (Yes I know, why do they have power outlets on their ceilings?)</p>
+
+<h3 id="materials-used-for-the-microphone-module">Materials Used for the Microphone Module</h3>
+
+<ul>
+  <li>Electret Microphone</li>
+  <li>LM386</li>
+  <li>LM3940</li>
+  <li>ESP8266-12E</li>
+  <li>Cap’s and Resistors</li>
+</ul>
+
+<p>The schematic of the module can be seen in the image below. Basically, LM386 amplifies the sound signals coming from the electret microphone with A<sub>G</sub>=20 and the LM3940 ensures that the ESP module gets the 3.3V it needs. The LM386 outputs a signal with a mean of 2.5V and can have a peak-to-peak value of 4V in loud environments. Because of this I added a voltage divider to limit the input to the analog input pin of the ESP module to because in some cases, if the input voltage value exceeds 3V the ESP module freaks out<sup><a href="http://esp8266.github.io/Arduino/versions/2.0.0/doc/reference.html#analog-input">[2]</a></sup>.</p>
+
+<p><img src="/assets/images/room_sound/schematic.png" alt="schematic_img" /></p>
+
+<h2 id="software">Software</h2>
+
+<p>In the transmitting portion of the system, which is the ESP8266 module, software was mostly establishing the WiFi connection and reading/sending the analog pin, but I also added a watchdog timer to prevent the code from crashing to some extent.</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">"Arduino.h"</span><span class="cp">
+#include</span> <span class="cpf">&lt;ESP8266WiFi.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;Ticker.h&gt;</span><span class="cp">
+</span>
+<span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">ssid</span> <span class="o">=</span> <span class="s">"istinye"</span><span class="p">;</span><span class="n">d</span>
+<span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">password</span> <span class="o">=</span> <span class="s">"0987654321"</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">server</span> <span class="o">=</span> <span class="s">"10.234.16.130"</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">int</span> <span class="n">port</span> <span class="o">=</span> <span class="mi">10002</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">watchdogCnt</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="n">WiFiClient</span> <span class="n">client</span><span class="p">;</span>
+<span class="n">Ticker</span> <span class="n">secondTick</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">ISRWatchdog</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="n">watchdogCnt</span><span class="o">++</span><span class="p">;</span>
+  <span class="k">if</span><span class="p">(</span><span class="n">watchdogCnt</span> <span class="o">==</span> <span class="mi">60</span><span class="p">)</span>
+  <span class="p">{</span>
+      <span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"Watchdog boom!"</span><span class="p">);</span>
+      <span class="n">ESP</span><span class="p">.</span><span class="n">reset</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">setup</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="n">Serial</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="mi">115200</span><span class="p">);</span>
+  <span class="n">secondTick</span><span class="p">.</span><span class="n">attach</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">ISRWatchdog</span><span class="p">);</span>
+  <span class="n">Serial</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">"Connecting to "</span><span class="p">);</span>
+  <span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">ssid</span><span class="p">);</span>
+  <span class="n">WiFi</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="n">ssid</span><span class="p">,</span> <span class="n">password</span><span class="p">);</span>
+
+  <span class="k">while</span> <span class="p">(</span><span class="n">WiFi</span><span class="p">.</span><span class="n">status</span><span class="p">()</span> <span class="o">!=</span> <span class="n">WL_CONNECTED</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">delay</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
+    <span class="n">Serial</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">"."</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"WiFi connected"</span><span class="p">);</span>
+
+  <span class="n">IPAddress</span> <span class="n">myIP</span><span class="o">=</span><span class="n">WiFi</span><span class="p">.</span><span class="n">softAPIP</span><span class="p">();</span>
+  <span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">myIP</span><span class="p">);</span>
+  <span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+
+  <span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">server</span><span class="p">);</span>
+  <span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"connecting..."</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">client</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span><span class="n">server</span><span class="p">,</span> <span class="n">port</span><span class="p">))</span> <span class="p">{</span>
+    <span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"connected"</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"connection failed"</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">loop</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="n">watchdogCnt</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="c1">//read the analog pin ADC=A0</span>
+  <span class="n">byte</span> <span class="n">resval</span><span class="o">=</span><span class="n">analogRead</span><span class="p">(</span><span class="n">A0</span><span class="p">);</span>
+  <span class="n">client</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">resval</span><span class="p">);</span>
+  <span class="n">delay</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>As the receiving portion, Raspberry gathers the data from three microphones in data arrays of twenty data point lengths and averages the highest ten of these data points. As it can be seen microphones send analog read values in every 100 milliseconds, thus the decibel value displayed in the monitor is updated in every 2 seconds.</p>
+
+<h3 id="calculating-the-db-values">Calculating the dB values</h3>
+
+<p>To accurately calculate the dB values we actually need the specifications of the microphone, but because the electret microphones that we used were generic ones with no identification on them, we decided to calculate the relative dB change instead. To achieve this, we calibrated the microphone with a known dB value <strong>V<sub>reference</sub></strong> and plugged it in with the measured value <strong>V<sub>reading</sub></strong> into the below equation:</p>
+
+\[dB = 20\log(\frac{V_{reading}}{V_{reference}})\]
+
+<p>The deployed Microphone Module MarkI can be seen below. The box was laser cut from PVC and assambled by hand by me and my friend Yigit 3am in the morning. I will probably update this post after I get the PCB and 3D print a sexier looking case for the Microphone Module MarkII.</p>
+
+<p><img src="/assets/images/room_sound/microphone_mark1.jpeg" alt="MIC_mark1_img" /></p>
+
+<p>And here is our baby displaying her skills. The dB values in the gif is pretty high because there was this guy who was very keen on playing the guitar in a student study hall and for some reason nobody seemed fazed by him. A weird school indeed…</p>
+
+<p><img src="/assets/images/room_sound/monitor.gif" alt="monitor_gif" /></p>
+
+<p>All in all, I think we managed to create a decent, working system that was easy to install and use, considering the fact that we had very little time to make it. There are many aspects of the project that can be further improved and I am planning to work on those improvements as I find some free time. First thing I want to look at is the fact that there are three microprocessors that are idle for the most part because they only send data through WiFi. A better algorithm can be implemented to increase the flexibility and the efficiency of the system.</p>
+
+<p>I want to thank my friend Yigit as he was the one who programmed the Raspberry Pi and handled all the commincation with the university staff.</p>]]></content><author><name>S. Kaan Cetindag</name><email>cetindag.kaan@gmail.com</email></author><category term="posts" /><category term="Hardware" /><category term="ESP8266" /><category term="sound" /><summary type="html"><![CDATA[Detection of decibel value inside a room with wireless microphones]]></summary></entry></feed>

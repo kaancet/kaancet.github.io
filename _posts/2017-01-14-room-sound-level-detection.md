@@ -1,7 +1,7 @@
 ---
 layout: single
 title: "Room Sound Level Detection with Wireless Microphones"
-categories: projects
+categories: posts
 tags: [Hardware, ESP8266, sound]
 excerpt: "Detection of decibel value inside a room with wireless microphones"
 ---

@@ -1,0 +1,597 @@
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>            NeuroCircle: An Alternative EEG Signal Visualization      csnfrt      </title>
+
+
+
+
+<meta name="description" content="An alternative visualization of EEG signals">
+
+
+
+
+<meta property="og:locale" content="en">
+<meta property="og:site_name" content="csnfrt">
+<meta property="og:title" content="NeuroCircle: An Alternative EEG Signal Visualization">
+
+
+  <link rel="canonical" href="http://localhost:4000/posts/EEG-signal-visualization/">
+  <meta property="og:url" content="http://localhost:4000/posts/EEG-signal-visualization/">
+
+
+
+  <meta property="og:description" content="An alternative visualization of EEG signals">
+
+
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2018-08-06T00:00:00+03:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "S. Kaan Cetindag",
+      "url" : "http://localhost:4000",
+      "sameAs" : "-https://facebook.com/kaan.cetindag.93 -https://tr.linkedin.com/in/kaan-çetindağ-a1a61387"
+    }
+  </script>
+
+
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://localhost:4000/feed.xml" type="application/atom+xml" rel="alternate" title="csnfrt Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript" ></script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://localhost:4000/assets/css/main.css">
+
+<meta http-equiv="cleartype" content="on">
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <button><div class="navicon"></div></button>
+        <ul class="visible-links">
+          <li class="masthead__menu-item masthead__menu-item--lg"><a href="http://localhost:4000/">csnfrt</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/blogposts/">Posts</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/portfolio/">Portfolio</a></li>
+          
+            
+            <li class="masthead__menu-item"><a href="http://localhost:4000/about/">About</a></li>
+          
+        </ul>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="http://localhost:4000/assets/images/kaan-photo.jpg" class="author__avatar" alt="S. Kaan Cetindag" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">S. Kaan Cetindag</h3>
+    
+      <p class="author__bio" itemprop="description">
+        Single sentence super awesome biography.
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+          <i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> <span itemprop="name">Leuven, BE</span>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:cetindag.kaan@gmail.com">
+            <meta itemprop="email" content="cetindag.kaan@gmail.com" />
+            <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://www.facebook.com/kaan.cetindag.93" itemprop="sameAs">
+            <i class="fa fa-fw fa-facebook-square" aria-hidden="true"></i> Facebook
+          </a>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="https://www.linkedin.com/in/kaan-çetindağ-a1a61387" itemprop="sameAs">
+            <i class="fa fa-fw fa-linkedin-square" aria-hidden="true"></i> LinkedIn
+          </a>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="https://instagram.com/cetindag.kaan" itemprop="sameAs">
+            <i class="fa fa-fw fa-instagram" aria-hidden="true"></i> Instagram
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/kaancet" itemprop="sameAs">
+            <i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+  <li>
+    <a href="/assets/data/kaan_cv.pdf" itemprop="sameAs">
+      <i class="fa fa-fw fa-file-pdf-o" aria-hidden="true"></i>
+      Resume
+    </a>
+  </li>
+
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="NeuroCircle: An Alternative EEG Signal Visualization">
+    <meta itemprop="description" content="An alternative visualization of EEG signals">
+    <meta itemprop="datePublished" content="August 06, 2018">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 class="page__title" itemprop="headline">NeuroCircle: An Alternative EEG Signal Visualization
+</h1>
+          
+            <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  2 minute read
+</p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        <p>The field of neuroscience is becoming more important everyday as our interst in inner workings of our own brains and cognition grows exponentially each day. The words ‘neuro’ and ‘cognitive’ are also becoming buzz words too, being added to words back and forth.</p>
+
+<p>One of the tools that plays a crucial role in this neuroscientific expansion is EEG(Electro encephelo gram), where brain signals are recorded transcranially with electrodes. These recordings are of course coarse averages of all signals in a specific brain region and dont give us the full picture, but combined with other powerful tools such as fMRI and deep brain electrodes, they play an important role in neuroscientific research.</p>
+
+<p>A standard EEG signal series may look like this:</p>
+
+<iframe width="900" height="800" frameborder="0" scrolling="no" src="//plot.ly/~kaancet/72.embed"></iframe>
+
+<p>The figure above shows three different samples. It is obvious that they are different and <span style="color:blue">blue</span> and <span style="color:orange">orange</span> samples are possibly resultant of some underlying phenomena, but overall the series data is not very informative to an untrained eye such as myself. To derive information from these signals multiple methods are used to extract features[1], and classify signals[2]. These methods provide valuable information and help derive useful conclusions from the EEG measurements in compact numerical representations.</p>
+
+<p>But since us humans are highly dependent on our visual perception, I wante to create a more visually stimulating representation of signal properties. After attending a <a href="https://www.borusancontemporary.com/tr/bir-baska-hafiza-veri-heykel-ve-Sanat_49">talk</a> by Refik Anadol about utilizing data and algorithms as a tool to create visual and auditory media and seeing his Melting Memories installation, I decided to implement an alternative visualization method for EEG signals. I used Python to extract various signal statistics and used these statistics in Processing as parameters determining the shape and motion of the figure.</p>
+
+<p>The resulting figure looks something like this:</p>
+
+<p><img src="/assets/images/NeuroCircle/neurocircle.gif" alt="neurocircle gif" /></p>
+
+<p>Each branch in the figure represents a seperate EEG measurement. The locations of branches are currently homogenously dispersed in a circle but can be changed to convey another information derived from the analysis. Since the figure has a circular form, the visualization method is aptly called <strong>NeuroCircle</strong></p>
+
+<p>For this current example I decided to use mean, standart deviation, kurtosis and the periodicity - which is simply the signal convolved with itself - of the signal to determine the properties of the figure, specifically:</p>
+<ul>
+  <li>Mean -&gt; The color change coefficient of branches</li>
+  <li>Standart Deviation -&gt; The movement speed coefficient of branch points</li>
+  <li>Periodicity -&gt; Length of branches</li>
+  <li>Kurtosis -&gt; Thickness coefficient of the branches</li>
+</ul>
+
+<p>A Python script calculates the statistics for each EEG sample and Proceesing uses these statistics to initialize branches.</p>
+
+<p>The EEG signals that were shown as time-series look like this:</p>
+
+<p><img src="/assets/images/NeuroCircle/samples.gif" alt="select_samples" /></p>
+
+<p>The long branches being the <span style="color:blue">blue</span> and <span style="color:orange">orange</span> smaples, respectively.</p>
+
+<p>The EEG signals used for this implementation was acquired from <a href="http://epileptologie-bonn.de/cms/front_content.php?idcat=193&amp;lang=3&amp;changelang=3">here</a>, which has 100 normal and epileptic EEG recordings. At this point this was more of an aesthetic driven project and the stats to be used as parameters were chosen randomly, and more specifically ease of implementation, but can easily be tweaked to be to include different statistics based on area specific details of the measurements.</p>
+
+<p><a name="foot1"></a></p>
+<hr style="width: 300px" />
+
+<p><strong>1</strong> - A. Al-Fahoum and A. Al-Fraihat, “Methods of EEG Signal Features Extraction Using Linear Analysis in Frequency and Time-Frequency Domains”, ISRN Neuroscience, vol. 2014, pp. 1-7, 2014.</p>
+
+<p><strong>2</strong> - T. Felzer and B. Freisleben, “Analyzing EEG signals using the probability estimating guarded neural classifier”, IEEE Transactions on Neural Systems and Rehabilitation Engineering, vol. 11, no. 4, pp. 361-371, 2003.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="http://localhost:4000/tags/#eeg" class="page__taxonomy-item" rel="tag">EEG</a><span class="sep">, </span>
+    
+      
+      
+      <a href="http://localhost:4000/tags/#neurocircle" class="page__taxonomy-item" rel="tag">neurocircle</a><span class="sep">, </span>
+    
+      
+      
+      <a href="http://localhost:4000/tags/#processing" class="page__taxonomy-item" rel="tag">processing</a><span class="sep">, </span>
+    
+      
+      
+      <a href="http://localhost:4000/tags/#python" class="page__taxonomy-item" rel="tag">python</a><span class="sep">, </span>
+    
+      
+      
+      <a href="http://localhost:4000/tags/#visualization" class="page__taxonomy-item" rel="tag">visualization</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="http://localhost:4000/categories/#posts" class="page__taxonomy-item" rel="tag">posts</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2018-08-06T00:00:00+03:00">August 06, 2018</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=NeuroCircle: An Alternative EEG Signal Visualization http://localhost:4000/posts/EEG-signal-visualization/" class="btn btn--twitter" title="Share on Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/posts/EEG-signal-visualization/" class="btn btn--facebook" title="Share on Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=http://localhost:4000/posts/EEG-signal-visualization/" class="btn btn--google-plus" title="Share on Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/posts/EEG-signal-visualization/" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="http://localhost:4000/posts/BTL-algorithm-NBA/" class="pagination--pager" title="NBA Finals prediction using BTL Algorithm
+">Previous</a>
+    
+    
+      <a href="http://localhost:4000/posts/Study-of-perceived-motion/" class="pagination--pager" title="A study of perceived motion, Part I
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript" ></script>
+
+  
+  
+    <div class="page__related">
+      
+        <h4 class="page__related-title">You May Also Enjoy</h4>
+      
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://localhost:4000/posts/Study-of-perceived-motion/" rel="permalink">A study of perceived motion, Part I
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  4 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">
+</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://localhost:4000/posts/BTL-algorithm-NBA/" rel="permalink">NBA Finals prediction using BTL Algorithm
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  4 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Application of Bradley-Terry-Luce (BTL) algorithm to determine the latent talent of NBA teams and simulating NBA Finals with these talents
+</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://localhost:4000/posts/non-human-character-analysis/" rel="permalink">Analysis of Non-human Characters in Movies
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  3 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Some thoughts and analysis on the role of non-human characters in movies
+</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="http://localhost:4000/posts/room-sound-level-detection/" rel="permalink">Room Sound Level Detection with Wireless Microphones
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  5 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Detection of decibel value inside a room with wireless microphones
+</p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+</div>
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>Follow:</strong></li>
+    
+    
+    
+    
+      <li><a href="http://github.com/kaancet"><i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+    
+    <li><a href="http://localhost:4000/feed.xml"><i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2023 S. Kaan Cetindag. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+      </footer>
+    </div>
+
+    <script src="http://localhost:4000/assets/js/main.min.js"></script>
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-91443495-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+    
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  </body>
+</html>

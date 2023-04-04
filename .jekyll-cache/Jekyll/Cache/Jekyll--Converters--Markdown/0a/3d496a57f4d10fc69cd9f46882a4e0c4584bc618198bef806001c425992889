@@ -1,0 +1,110 @@
+I"�/<p>I recently undertook a project with one of my friends for a local university here in Istanbul. The project was basically to implement a detection system in a room to monitor the sound level in that room and display it on a screen. The purpose was to inform the people in the room that they were too loud, given the fact that the room was right next to the library.(This was a rather small university and the library was actually a collection of rooms inside the main building.)</p>
+
+<p>The problem was they informed us a bit late that they wanted to do the project with us so we had approximately 3 weeks to design, prototype, test and deploy the whole system. For this we decided to connect the microphone modules to a Raspberry Pi 3 and hook it up to a monitor, since it is pretty fast to setup a Raspberry.</p>
+
+<p>I wanted to work with ESP modules for a long time but never had a chance to try them, so I thought it would be a good idea to implement the microphones with ESP modules to transmit sound signals through WiFi since the room was quite big and it would be ugly and bulky to use wires to transmit the sound signals from the microphones to the Raspberry Pi.</p>
+
+<h2 id="hardware">Hardware</h2>
+
+<p>The main design goals was to make the microphone modules small, energy efficient and portable. I first set out to implement the system with a battery for portability but trying to overlap energy efficiency and portability proved to be quite hard, as it turns out the ESP modules tend to have an insatiable hunger for power. Although there is a very useful Deep Sleep mode to considerably decrease the power consumption<sup><a href="http://www.esp8266.com/wiki/doku.php?id=esp8266_power_usage">[1]</a></sup>, I didn’t want to implement it because our application needs continuous sound measurement in the room. Because of this the module size was considerably increased due to using relatively high capacity Li-ion batteries, which I scavenged from unused powerbanks.</p>
+
+<p>Luckily, after our first deployment the university wanted to put the microphone modules close to the ceiling - to keep them out of students’ reach - and we were able to plug in our modules to power outlets and designed the second modules according to that and added a generic 5V dc plug. (Yes I know, why do they have power outlets on their ceilings?)</p>
+
+<h3 id="materials-used-for-the-microphone-module">Materials Used for the Microphone Module</h3>
+
+<ul>
+  <li>Electret Microphone</li>
+  <li>LM386</li>
+  <li>LM3940</li>
+  <li>ESP8266-12E</li>
+  <li>Cap’s and Resistors</li>
+</ul>
+
+<p>The schematic of the module can be seen in the image below. Basically, LM386 amplifies the sound signals coming from the electret microphone with A<sub>G</sub>=20 and the LM3940 ensures that the ESP module gets the 3.3V it needs. The LM386 outputs a signal with a mean of 2.5V and can have a peak-to-peak value of 4V in loud environments. Because of this I added a voltage divider to limit the input to the analog input pin of the ESP module to because in some cases, if the input voltage value exceeds 3V the ESP module freaks out<sup><a href="http://esp8266.github.io/Arduino/versions/2.0.0/doc/reference.html#analog-input">[2]</a></sup>.</p>
+
+<p><img src="/assets/images/room_sound/schematic.png" alt="schematic_img" /></p>
+
+<h2 id="software">Software</h2>
+
+<p>In the transmitting portion of the system, which is the ESP8266 module, software was mostly establishing the WiFi connection and reading/sending the analog pin, but I also added a watchdog timer to prevent the code from crashing to some extent.</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">"Arduino.h"</span><span class="cp">
+#include</span> <span class="cpf">&lt;ESP8266WiFi.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;Ticker.h&gt;</span><span class="cp">
+</span>
+<span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">ssid</span> <span class="o">=</span> <span class="s">"istinye"</span><span class="p">;</span><span class="n">d</span>
+<span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">password</span> <span class="o">=</span> <span class="s">"0987654321"</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">server</span> <span class="o">=</span> <span class="s">"10.234.16.130"</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">int</span> <span class="n">port</span> <span class="o">=</span> <span class="mi">10002</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">watchdogCnt</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="n">WiFiClient</span> <span class="n">client</span><span class="p">;</span>
+<span class="n">Ticker</span> <span class="n">secondTick</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">ISRWatchdog</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="n">watchdogCnt</span><span class="o">++</span><span class="p">;</span>
+  <span class="k">if</span><span class="p">(</span><span class="n">watchdogCnt</span> <span class="o">==</span> <span class="mi">60</span><span class="p">)</span>
+  <span class="p">{</span>
+      <span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"Watchdog boom!"</span><span class="p">);</span>
+      <span class="n">ESP</span><span class="p">.</span><span class="n">reset</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">setup</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="n">Serial</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="mi">115200</span><span class="p">);</span>
+  <span class="n">secondTick</span><span class="p">.</span><span class="n">attach</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">ISRWatchdog</span><span class="p">);</span>
+  <span class="n">Serial</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">"Connecting to "</span><span class="p">);</span>
+  <span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">ssid</span><span class="p">);</span>
+  <span class="n">WiFi</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="n">ssid</span><span class="p">,</span> <span class="n">password</span><span class="p">);</span>
+
+  <span class="k">while</span> <span class="p">(</span><span class="n">WiFi</span><span class="p">.</span><span class="n">status</span><span class="p">()</span> <span class="o">!=</span> <span class="n">WL_CONNECTED</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">delay</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
+    <span class="n">Serial</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">"."</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"WiFi connected"</span><span class="p">);</span>
+
+  <span class="n">IPAddress</span> <span class="n">myIP</span><span class="o">=</span><span class="n">WiFi</span><span class="p">.</span><span class="n">softAPIP</span><span class="p">();</span>
+  <span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">myIP</span><span class="p">);</span>
+  <span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">);</span>
+
+  <span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">server</span><span class="p">);</span>
+  <span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"connecting..."</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">client</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span><span class="n">server</span><span class="p">,</span> <span class="n">port</span><span class="p">))</span> <span class="p">{</span>
+    <span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"connected"</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="n">Serial</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="s">"connection failed"</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">loop</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="n">watchdogCnt</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="c1">//read the analog pin ADC=A0</span>
+  <span class="n">byte</span> <span class="n">resval</span><span class="o">=</span><span class="n">analogRead</span><span class="p">(</span><span class="n">A0</span><span class="p">);</span>
+  <span class="n">client</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">resval</span><span class="p">);</span>
+  <span class="n">delay</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>As the receiving portion, Raspberry gathers the data from three microphones in data arrays of twenty data point lengths and averages the highest ten of these data points. As it can be seen microphones send analog read values in every 100 milliseconds, thus the decibel value displayed in the monitor is updated in every 2 seconds.</p>
+
+<h3 id="calculating-the-db-values">Calculating the dB values</h3>
+
+<p>To accurately calculate the dB values we actually need the specifications of the microphone, but because the electret microphones that we used were generic ones with no identification on them, we decided to calculate the relative dB change instead. To achieve this, we calibrated the microphone with a known dB value <strong>V<sub>reference</sub></strong> and plugged it in with the measured value <strong>V<sub>reading</sub></strong> into the below equation:</p>
+
+\[dB = 20\log(\frac{V_{reading}}{V_{reference}})\]
+
+<p>The deployed Microphone Module MarkI can be seen below. The box was laser cut from PVC and assambled by hand by me and my friend Yigit 3am in the morning. I will probably update this post after I get the PCB and 3D print a sexier looking case for the Microphone Module MarkII.</p>
+
+<p><img src="/assets/images/room_sound/microphone_mark1.jpeg" alt="MIC_mark1_img" /></p>
+
+<p>And here is our baby displaying her skills. The dB values in the gif is pretty high because there was this guy who was very keen on playing the guitar in a student study hall and for some reason nobody seemed fazed by him. A weird school indeed…</p>
+
+<p><img src="/assets/images/room_sound/monitor.gif" alt="monitor_gif" /></p>
+
+<p>All in all, I think we managed to create a decent, working system that was easy to install and use, considering the fact that we had very little time to make it. There are many aspects of the project that can be further improved and I am planning to work on those improvements as I find some free time. First thing I want to look at is the fact that there are three microprocessors that are idle for the most part because they only send data through WiFi. A better algorithm can be implemented to increase the flexibility and the efficiency of the system.</p>
+
+<p>I want to thank my friend Yigit as he was the one who programmed the Raspberry Pi and handled all the commincation with the university staff.</p>
+:ET
