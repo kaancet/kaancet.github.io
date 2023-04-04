@@ -313,9 +313,9 @@
 
 <p>In the transmitting portion of the system, which is the ESP8266 module, software was mostly establishing the WiFi connection and reading/sending the analog pin, but I also added a watchdog timer to prevent the code from crashing to some extent.</p>
 
-<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">"Arduino.h"</span><span class="cp">
-#include</span> <span class="cpf">&lt;ESP8266WiFi.h&gt;</span><span class="cp">
-#include</span> <span class="cpf">&lt;Ticker.h&gt;</span><span class="cp">
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include "Arduino.h"
+#include &lt;ESP8266WiFi.h&gt;
+#include &lt;Ticker.h&gt;
 </span>
 <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">ssid</span> <span class="o">=</span> <span class="s">"istinye"</span><span class="p">;</span><span class="n">d</span>
 <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">password</span> <span class="o">=</span> <span class="s">"0987654321"</span><span class="p">;</span>
@@ -336,7 +336,7 @@
   <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="kt">void</span> <span class="n">setup</span><span class="p">()</span>
+<span class="kt">void</span> <span class="nf">setup</span><span class="p">()</span>
 <span class="p">{</span>
   <span class="n">Serial</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="mi">115200</span><span class="p">);</span>
   <span class="n">secondTick</span><span class="p">.</span><span class="n">attach</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">ISRWatchdog</span><span class="p">);</span>
@@ -363,7 +363,7 @@
   <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="kt">void</span> <span class="n">loop</span><span class="p">()</span>
+<span class="kt">void</span> <span class="nf">loop</span><span class="p">()</span>
 <span class="p">{</span>
   <span class="n">watchdogCnt</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
   <span class="c1">//read the analog pin ADC=A0</span>
